@@ -1,0 +1,189 @@
+/*!
+ * Roots 6.5.2
+ */
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,700,300);
+
+@import "bootstrap/bootstrap.less";
+
+
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+body { }
+
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.banner { }
+
+
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.content { }
+
+
+
+/* ==========================================================================
+   Primary Content
+   ========================================================================== */
+
+.main { }
+
+/* Gallery Shortcode */
+.gallery-row { padding: 15px 0; }
+
+
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.sidebar { }
+
+
+
+/* ==========================================================================
+   Posts
+   ========================================================================== */
+
+.hentry header { }
+.hentry time { }
+.hentry .byline { }
+.hentry .entry-content { }
+.hentry footer { }
+
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.content-info { }
+
+
+
+/* ==========================================================================
+   WordPress Generated Classes
+   See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes
+   ========================================================================== */
+
+.aligncenter { display: block; margin: 0 auto; }
+.alignleft { float: left; }
+.alignright { float: right; }
+figure.alignnone { margin-left: 0; margin-right: 0; }
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media (min-width: @screen-sm-min) { }
+
+@media (min-width: @screen-md-min) { }
+
+@media (min-width: @screen-lg-min) { }
+
+
+/* ==========================================================================
+   CUSTOM
+   ========================================================================== */
+.breadcrumb {
+	background-color: @body-bg;
+	a {
+		color: #000;
+	}
+}
+
+/* ==========================================================================
+   Carousel Custom
+   ========================================================================== */
+#GoldringCarousel {
+	// background-color: gray;
+}
+#GoldringCarousel {
+	.carousel-inner>.item>img, .carousel-inner>.item>a>img {  
+		margin: 0 auto;	
+	}
+	.carousel-inner>.item>h4 {
+		font-size: 12px;
+	}
+	.carousel-indicators {
+		position: absolute;
+		left: 0%;
+		width: 100%;
+		margin-left: 0%;
+		bottom: 10px;
+		z-index: 15;
+		padding-left: 0;
+		list-style: none;
+		text-align: center;	
+	}
+	.carousel-indicators>.active {
+		background-color: rgba(0,0,0,0);
+	}
+	.carousel-indicators>li {
+		text-indent: 0px;
+		margin: 10px;
+		border: none;
+		border-radius: 0px;
+		width: 50px;
+		height: 50px;
+	}
+	.carousel-indicators>li>img {
+		width: 50px;	
+	}
+	.carousel-caption {
+	position: relative;
+	left: 0%;
+	z-index: 10;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	}
+	.carousel-caption {
+	
+	}
+}
+
+
+
+#myModal {
+	.carousel-inner>.item>img, .carousel-inner>.item>a>img, {  
+		margin: 0 auto;
+		height: 100%;
+	}
+	.carousel-inner>.item>img, .carousel-inner>.item>a>img, {  
+		margin: 0 auto;
+		height: 100%;
+	}
+	.modal-dialog {
+	  width: 100%;
+	  padding: 0;
+	  margin: 0px;
+	}
+	.modal-content {
+	  height: 100%;
+	  border-radius: 0;
+	}
+	.modal-body {
+	  padding: 0px;
+	}
+	.modal-footer {
+		margin-top: 0px;
+		padding: 0px;
+	}
+	.modal-header {
+		margin-top: 0px;
+		padding: 0px;
+	}
+}
+
+

@@ -10,12 +10,12 @@
 	<a href="javascript:void(0)" onclick="Duplicator.Pack.ResetName()" title="<?php _e('Create a new default name', 'wpduplicator') ?>"><i class="fa fa-undo"></i></a> <br/>
 	<input id="package-name"  name="package-name" type="text" value="<?php echo $Package->Name ?>" maxlength="40"  data-required="true" data-regexp="^[0-9A-Za-z|_]+$" /> <br/>
 	<label><b><?php _e('Notes', 'wpduplicator') ?>:</b></label> <br/>
-	<textarea id="package-notes" name="package-notes" type="text" maxlength="300" placeholder="<?php _e('Purpose of this package', 'wpduplicator') ?>" /><?php echo $Package->Notes ?></textarea>
+	<textarea id="package-notes" name="package-notes" maxlength="300" placeholder="<?php _e('Purpose of this package', 'wpduplicator') ?>" /><?php echo $Package->Notes ?></textarea>
 
 	<!-- META-BOX: ARCHIVE -->
 	<div class="dup-box" style="margin-top:10px">
 	<div class="dup-box-title">
-		<i class="fa fa-bars"></i> <?php _e('Archive', 'wpduplicator') ?> &nbsp;
+		<i class="fa fa-file-archive-o"></i> <?php _e('Archive', 'wpduplicator') ?> &nbsp;
 		<span style="font-size:13px">
 			<span id="dup-archive-filter-file" title="<?php _e('File filter enabled', 'wpduplicator') ?>"><i class="fa fa-files-o"></i> <i class="fa fa-filter"></i> &nbsp;&nbsp;</span> 
 			<span id="dup-archive-filter-db" title="<?php _e('Database filter enabled', 'wpduplicator') ?>"><i class="fa fa-table"></i> <i class="fa fa-filter"></i></span>	
@@ -50,7 +50,7 @@
 					
 					<div class="dup-enable-filters">
 						<input type="checkbox" id="filter-on" name="filter-on" onclick="Duplicator.Pack.ToggleFileFilters()" <?php echo ($Package->Archive->FilterOn) ? "checked='checked'" : ""; ?> />	
-						<label for="filter-on"><?php _e("Enable Filters", 'wpduplicator') ?></label>
+						<label for="filter-on"><?php _e("Enable File Filters", 'wpduplicator') ?></label>
 					</div>
 
 					<div id="dup-file-filter-items">
@@ -87,7 +87,7 @@
 						<table>
 							<tr>
 								<td><input type="checkbox" id="dbfilter-on" name="dbfilter-on" onclick="Duplicator.Pack.ToggleDBFilters()" <?php echo ($Package->Database->FilterOn) ? "checked='checked'" : ""; ?> /></td>
-								<td><label for="dbfilter-on"><?php _e("Enable Filters", 'wpduplicator') ?> &nbsp;</label> </td>
+								<td><label for="dbfilter-on"><?php _e("Enable Table Filters", 'wpduplicator') ?> &nbsp;</label> </td>
 								<td><div class="dup-tabs-opts-help" style="margin:5px 0px 0px 0px"><?php _e("checked tables are excluded", 'wpduplicator') ?></div></td>
 							</tr>
 						</table>
