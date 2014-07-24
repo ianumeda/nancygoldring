@@ -22,8 +22,8 @@
       <main class="main <?php echo roots_main_class(); ?>" role="main">
 		  
 		  <?php
-		    if ( function_exists('custom_breadcrumb') ) {
-		      custom_breadcrumb();
+		    if ( function_exists('custom_breadcrumb') && (is_front_page()!=true) ) {
+          custom_breadcrumb();
 		    }
 		  ?>
 		  
