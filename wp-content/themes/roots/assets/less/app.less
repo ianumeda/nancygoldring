@@ -91,7 +91,53 @@ body {
    Footer
    ========================================================================== */
 
-.content-info { }
+footer.content-info { 
+  width:100%;
+  >.row {
+    margin-left:0;
+    margin-right:0;
+  }
+  #footer_info_button { 
+    transition: all 500ms ease;
+    color:#888; 
+    font-size:18px; 
+    padding: 0 .5em 1em;
+    &:hover { color:#fcfcfc; }
+  }
+  .reveal { 
+    overflow:hidden;
+    height:0px;
+    background:rgba(0,0,0,.05);
+    box-shadow:inset 0 0 10px -6px;
+    // padding:.5em;
+    width:100%;
+    position:relative;
+    -webkit-transition: height 500ms ease;
+    -moz-transition: height 500ms ease;
+    -o-transition: height 500ms ease;
+    transition: height 500ms ease;   
+    -webkit-transition-delay: 1000; /* Safari */
+    transition-delay: 1000;
+    > div { padding:.5em; }
+    .contact_info { 
+      line-height:1.6em;
+      > span {
+        margin-right:4px; 
+        &:after { content: ":"}
+      }
+    }
+  }
+  &.active {
+    #footer_info_button { 
+      opacity:0;
+    }
+    .reveal {
+      height:120px;
+      -webkit-transition-delay: 0; /* Safari */
+      transition-delay: 0;
+    }
+  }
+}
 
 
 
