@@ -210,7 +210,27 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		padding: 0px;
 	}
 }
-
+// Fade transition for carousel items
+.carousel {
+  .item {
+    left: 0 !important;
+    .transition(opacity .6s); //adjust timing here
+  }
+  .carousel-control {
+    background-image: none; // remove background gradients on controls
+  }
+  // Fade controls with items
+  .next.left,
+  .prev.right {
+    opacity: 1;
+    z-index: 1;
+  }
+  .active.left,
+  .active.right {
+    opacity: 0;
+    z-index: 2;
+  }
+}
 #feature_carousel {
   .background-carousel { 
     .background_image_container { 
@@ -224,13 +244,21 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       height:540px;
     }
   }
-  .carousel-caption { position:relative; left:0; right:0; bottom:0; padding-bottom:0;  }
-  a { 
-    color:#fff; 
-    &:hover { color: #fff; text-decoration:underline; }
+  .carousel-caption { 
+    position:relative; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    padding-bottom:0;  
+    font-weight: 100;
+    font-size: 12px;
+    color:#333;
+    text-shadow:none; 
   }
 }
-.carousel-control {
+a.carousel-control {
+  color:#aaa;
+  text-shadow:none;
   &.right,&.left { background-image:none; }
 }
 .coverall_link {
