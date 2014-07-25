@@ -224,11 +224,15 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   .prev.right {
     opacity: 1;
     z-index: 1;
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
   }
   .active.left,
   .active.right {
     opacity: 0;
     z-index: 2;
+    -webkit-transition-delay: 0s; /* Safari */
+    transition-delay: 0s;
   }
 }
 #feature_carousel {
@@ -242,6 +246,17 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       background-repeat: no-repeat;
       overflow:hidden;
       height:540px;
+    }
+  }
+  .carousel-indicators {
+    position:relative;
+    bottom:-20px;
+    li { 
+      .transition(background .4s);
+      border:1px solid #888;
+      background:rgba(0,0,0,0);
+      &.active { background:#aaa; }
+      &:hover { background:#fcfcfc; }
     }
   }
   .carousel-caption { 

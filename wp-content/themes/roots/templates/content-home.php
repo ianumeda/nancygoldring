@@ -14,7 +14,7 @@ if ( $query->have_posts() ) {
 
 <?php	
 $slide_counter=0;
-$indicators='<!-- Indicators --><ol class="carousel-indicators hidden-md hidden-lg">';
+$indicators='<!-- Indicators --><ol class="carousel-indicators">';
 while ( $query->have_posts() ) { 
   $indicators.='<li data-target="#feature_carousel" data-slide-to="'.$slide_counter.'" class="carousel-indicator '.($slide_counter==0 ? "active" : "").'"></li>';
   $query->the_post(); 
@@ -49,8 +49,8 @@ $indicators.='</ol>';
     <a class="right carousel-control" href="#feature_carousel" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
-  </div>
 <?php echo $indicators; ?>
+  </div>
 </div>
 <?php } else { ?>
 	<div class="alert alert-danger">Content not found.</div>
