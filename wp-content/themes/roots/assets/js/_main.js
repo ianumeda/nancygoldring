@@ -23,12 +23,35 @@ var Roots = {
   common: {
     init: function() {
       // JavaScript to be fired on all pages
+      
+      function position_footer(){
+        if($(document).height() > window.innerHeight ) {
+          $('footer').css({"position":"relative"});
+        } else {
+          $('footer').css({"position":"fixed", "bottom":"0"});
+        }
+      }
+      
+      $(window).resize( function(){
+        position_footer();
+      });
+      position_footer();
     }
   },
   // Home page
   home: {
     init: function() {
       // JavaScript to be fired on the home page
+      
+      function vertically_center_element(e){
+        var foo=(document.documentElement.clientHeight-e.height()-$('main').offset().top)/2;
+        console.log( document.documentElement.clientHeight+"-"+e.height()+"/2="+foo );
+        e.css({"top":(foo>0 ? foo : 0)+"px"});
+      }
+      $(window).resize( function(){
+        vertically_center_element($("#feature_carousel"));
+      });
+      vertically_center_element($("#feature_carousel"));
     }
   },
   // About us page, note the change from about-us to about_us.
@@ -61,3 +84,4 @@ var UTIL = {
 $(document).ready(UTIL.loadEvents);
 
 })(jQuery); // Fully reference jQuery after this point.
+
