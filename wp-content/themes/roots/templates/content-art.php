@@ -30,11 +30,25 @@
    	             <div class="modal-body">
    	                 <div id="goldring-modal-carousel" class="carousel slide">
    	                     <!-- Indicators -->
-   	                     <ol class="carousel-indicators">
-   	                         <li data-target="#goldring-modal-carousel" data-slide-to="0" class="active"></li>
-   	                         <li data-target="#goldring-modal-carousel" data-slide-to="1"></li>
-   	                         <li data-target="#goldring-modal-carousel" data-slide-to="2"></li>
-   	                     </ol>
+						   <ol class="carousel-indicators">
+							      		<?php
+							   				$number = 0;
+							      		    $images = get_children( array( 'post_parent' => $post->ID, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
+							      		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
+							      		        if ( $images ) { 
+
+							      		                //looping through the images
+							      		                foreach ( $images as $attachment_id => $attachment ) {
+							      		                ?>
+		   
+								     <li data-target="#goldring-modal-carousel" data-slide-to="<?php echo $number++; ?>">
+									 </li>
+	
+							               <?php
+							               }
+							       }
+								?>
+						   </ol>
    	                     <!-- Wrapper for slides -->
    	                     <div class="carousel-inner">
 							 
