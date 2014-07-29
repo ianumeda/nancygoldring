@@ -28,14 +28,24 @@ var Roots = {
         if($(document).height() > window.innerHeight ) {
           $('footer').css({"position":"relative"});
         } else {
-          $('footer').css({"position":"fixed", "bottom":"0"});
+          $('footer').css({"position":"absolute", "bottom":"1px"});
         }
       }
+      $("#footer_info_button").on("click mouseenter",function(e){
+        $("footer").addClass("active");
+        window.setTimeout(function(){
+          $.scrollTo('100%', {duration:500});
+        }, 500);
+      });
+      $('footer').on('mouseleave', function(){
+        $("footer").removeClass("active");
+      });
       
       $(window).resize( function(){
         position_footer();
       });
       position_footer();
+      
     }
   },
   // Home page
