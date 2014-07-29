@@ -2,3 +2,5 @@
 .htaccess
 
 .htaccess
+
+wp-content/plugins/wordfence/tmp/configCache.php
