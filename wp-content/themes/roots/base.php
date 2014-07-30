@@ -19,7 +19,7 @@
 
   <div class="wrap container" role="document">
     <div class="content row">
-      <main class="main col-lg-8 col-lg-push-2 col-sm-10 col-sm-push-1 <?php echo roots_main_class(); ?>" role="main">
+      <main class="main <?php echo roots_main_class(); ?>" role="main">
 		  
 		  <?php
 		    if ( function_exists('custom_breadcrumb') && (is_front_page()!=true) ) {

@@ -1,10 +1,16 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?>>
-    
+  <div class="md-overlay"></div>    
 	<div class="entry-content">
 		<div class="row">
 			<div class="col-xs-12">
+        <button type="button" class="btn btn-link art_about collapsed" data-toggle="collapse" data-target="#art_about">
+          <span class="collapsed glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-minus"></span> About
+        </button>
+
+        <div id="art_about" class="collapse">
 				<?php the_content() ?>
+        </div>
 			</div>
 		</div>
    	   
@@ -17,7 +23,6 @@
 		</div>
 	</div> 
 	 
-
    	 <!-- Modal -->
    	 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    	     <div class="modal-dialog">
@@ -83,10 +88,10 @@
    				 	   				?>         
    	                     </div>
    	                     <!-- Controls --> <a class="left carousel-control" href="#goldring-modal-carousel" data-slide="prev">
-   	     <span class="icon-prev"></span>
+   	     <span class="glyphicon glyphicon-chevron-left"></span>
    	   </a>
    	  <a class="right carousel-control" href="#goldring-modal-carousel" data-slide="next">
-   	     <span class="icon-next"></span>
+   	     <span class="glyphicon glyphicon-chevron-right"></span>
    	   </a>
 
    	                 </div>
