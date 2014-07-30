@@ -88,10 +88,10 @@
    				 	   				?>         
    	                     </div>
    	                     <!-- Controls --> <a class="left carousel-control" href="#goldring-modal-carousel" data-slide="prev">
-   	     <span class="icon-prev"></span>
+   	     <span class="glyphicon glyphicon-chevron-left"></span>
    	   </a>
    	  <a class="right carousel-control" href="#goldring-modal-carousel" data-slide="next">
-   	     <span class="icon-next"></span>
+   	     <span class="glyphicon glyphicon-chevron-right"></span>
    	   </a>
 
    	                 </div>
