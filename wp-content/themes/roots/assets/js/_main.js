@@ -44,13 +44,15 @@ var Roots = {
       }
       
       function init_fullscreen_modal (iteration){
-        if( $("#goldring-modal-carousel").innerHeight() === 0){
+        // this function ensures that the resizing of the modal presentation happens before you see it. All the sizing can only happen with the modal is active. Otherwise the sizes are all zero.
+        if( $("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0){
           console.log("not ready:"+iteration);
           $("#goldring-modal-carousel").css({"opacity":"0"});
-          setTimeout(function(){init_fullscreen_modal(iteration++);},50);
+          setTimeout(function(){init_fullscreen_modal(iteration++);},500);
         } else  {
           console.log("ready!");
           vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+          make_modal_presentation_big();
           $("#goldring-modal-carousel").css({"opacity":"1" , "transition":"opacity .5s ease"});
         }
       }
@@ -68,14 +70,41 @@ var Roots = {
         $("footer").removeClass("active");
       });
       
+      function make_modal_presentation_big(){
+        $("#goldring-modal-carousel .background_image_container").each(function(){
+          // this function sizes the carousel images to the size of the parent container divs
+          if( $(this).parent().css("display")==="none"){
+            // this is because elements with display:none have zero height 
+            $(this).parent().css({display:"block",visibility:"hidden"}); // hack!
+          }
+          $(this).height($(this).parent().height()); // this sets the height of the image div to the max height of the container
+
+          var parent_h=$(this).parent().height();
+          var parent_w=$(this).parent().width();
+          
+          // the following gets the background image dimensions so we can set the background-size so that it doesn't get cut off
+          var img = new Image();
+          img.src = $(this).css('background-image').replace(/url\(|\)$/ig, "");
+          // console.log(img.width+" x "+img.height);
+          if( parent_h / parent_w > img.height/img.width ){
+            $(this).css({'background-size':'100% auto'});
+          } else {
+            $(this).css({'background-size':'auto 100%'});
+          }
+          if( $(this).parent().attr('style') ){
+            $(this).parent().removeAttr('style'); // unhack!
+          }
+        });
+      }
       $(window).resize( function(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+        if($('#goldring-modal-carousel').length) { make_modal_presentation_big(); }
         position_footer();
       });
       // first run...
       vertically_center_element( $("#feature_carousel"), $('main').offset().top );
-      vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+      // vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
       position_footer();
       
     }

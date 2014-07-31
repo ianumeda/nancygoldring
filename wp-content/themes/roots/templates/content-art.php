@@ -4,6 +4,7 @@
 	<div class="entry-content">
 		<div class="row">
 			<div class="col-xs-12">
+        <h2 class="art_title"><?php the_title() ?></h2>
         <button type="button" class="btn btn-link art_about collapsed" data-toggle="collapse" data-target="#art_about">
           <span class="collapsed glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-minus"></span> About
         </button>
@@ -44,25 +45,42 @@
 				   
       		      		<?php
       		   				$number = 0;
-                    $carousel_indicators='<ol class="carousel-indicators">';
-                    $carousel_items='';
+                    $modal_carousel_indicators='<ol class="carousel-indicators">';
+                    $page_carousel_indicators='<ol class="carousel-indicators">';
+                    $modal_carousel_items='';
+                    $page_carousel_items='';
+                    
             		    $images = get_children( array( 'post_parent' => $post->ID, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
                 		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
         		        if ( $images ) { 
                       //looping through the images
                       foreach ( $images as $attachment_id => $attachment ) {
-                        $carousel_indicators.='<li data-target="#goldring-modal-carousel" data-slide-to="'.$number.'" class="'. ($number==0 ? ' active' : '') .'"></li>';
-                        $carousel_items.='<div class="item modal-item background-carousel"'. ($number==0 ? ' active': '') .'">';
-        								$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'full' );
-                        $carousel_items.='<div class="background_image_container" style="background-image:url('. $imageUrl[0] .');"></div>';
-                        $carousel_items.='<div class="carousel-caption">';
-                        $carousel_items.='<p>'. $attachment->post_excerpt .'</p>';
-        						    $carousel_items.='<p>'. $attachment->post_content .'</p></div></div>';
+                        
+                        $modal_carousel_indicators.='<li data-target="#goldring-modal-carousel" data-slide-to="'.$number.'" class="'. ($number==0 ? ' active' : '') .'"></li>';
+                        // indicators for the page display with thumbnail images...
+                        $page_carousel_indicators.='<li data-target="#GoldringCarousel" data-slide-to="'. $number .'" class="'. ($number==0 ? ' active' : '') .'">';
+                    		$page_carousel_indicators.='<img src="'.wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )[0] .'"/></li>';
+                        
+
+                        $modal_carousel_items.='<div class="item modal-item background-carousel'. ($number==0 ? ' active': '') .'">';
+                        $modal_carousel_items.='<div class="background_image_container" style="background-image:url('. wp_get_attachment_image_src( $attachment->ID, 'large' )[0] .');"></div>';
+                        $modal_carousel_items.='<div class="carousel-caption">';
+                        $modal_carousel_items.='<p>'. $attachment->post_excerpt .'</p>';
+        						    $modal_carousel_items.='<p>'. $attachment->post_content .'</p></div></div>';
+
+
+                        $page_carousel_items.='<div class="item modal-item background-carousel'. ($number==0 ? ' active': '') .'">';
+                        $page_carousel_items.='<div class="background_image_container" style="background-image:url('. wp_get_attachment_image_src( $attachment->ID, 'full' )[0] .');"></div>';
+                        $page_carousel_items.='<div class="carousel-caption">';
+                        $page_carousel_items.='<p>'. $attachment->post_excerpt .'</p>';
+        						    $page_carousel_items.='<p>'. $attachment->post_content .'</p></div></div>';
+
                         $number++;
       	              }
         			      }
-         				    $carousel_indicators.='</ol>';
-                    echo $carousel_items;
+         				    $modal_carousel_indicators.='</ol>';
+                    $page_carousel_indicators.='</ol>';
+                    echo $modal_carousel_items;
         						?>
 					          
                    </div>
@@ -74,7 +92,7 @@
                	     <span class="glyphicon glyphicon-chevron-right"></span>
                	   </a>
 
-                   <?php echo $carousel_indicators; ?>
+                   <?php echo $modal_carousel_indicators; ?>
                  </div>
                </div>
            <div class="modal-footer">
@@ -98,71 +116,13 @@
 	 <!-- POST CAROUSEL GALLERY -->  
 	 
 	 <div id="GoldringCarousel" class="carousel slide" data-ride="carousel" data-interval="20000">
-		 
-		 
-		 
-		 
-		 
+     <!-- Wrapper for slides -->
+     <div class="carousel-inner">
+       <?php echo $page_carousel_items; ?>
+     </div>
 	   <!-- Indicators -->
-	   <ol class="carousel-indicators">
-      		<?php
-   				$number = 0;
-      		    $images = get_children( array( 'post_parent' => $post->ID, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
-      		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
-      		        if ( $images ) { 
-
-      		                //looping through the images
-      		                foreach ( $images as $attachment_id => $attachment ) {
-      		                ?>
-		   
-	     <li data-target="#GoldringCarousel" data-slide-to="<?php echo $number++; ?>">
-		<?php
-		$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' );
-
-		echo '<img src="'; echo $imageUrl[0]; echo '"/> ';
-		?>
-		 </li>
-	
-               <?php
-               }
-       }
-	?>
-	   </ol>
-
-	   <!-- Wrapper for slides -->
-	   <div class="carousel-inner">
-   		<?php
-   		        $images = get_children( array( 'post_parent' => $post->ID, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
-   		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
-   		        if ( $images ) { 
-
-   		                //looping through the images
-   		                foreach ( $images as $attachment_id => $attachment ) {
-   		                ?>
-
-   		                <?php /* Outputs the image like this: <img src="" alt="" title="" width="" height="" /> */  ?>							
-							<div class="carousel-item item">
-   									
-								
-								<?php
-								$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'medium' );
-
-								echo '<img class="img-responsive" src="'; echo $imageUrl[0]; echo '"/> ';
-								?>
-   	                             <div class="carousel-caption">
- 								        <p>Caption <?php echo $attachment->post_excerpt; ?></p>
- 								        <p>Description <?php echo $attachment->post_content; ?></p>
-   	                             </div>
-							</div>
-							        
-
-   		                <?php
-   		                }
-   		        }
-   				?>
-	     </div>
-
-	   </div>
+     <?php echo $page_carousel_indicators; ?>
+	 </div>
 
 	   <!-- Controls -->
 	   <a class="left carousel-control" href="#GoldringCarousel" role="button" data-slide="prev">
