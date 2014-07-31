@@ -23,6 +23,17 @@ var Roots = {
   common: {
     init: function() {
       // JavaScript to be fired on all pages
+      function vertically_center_element(e, offset_h){
+        if(!e.length) {return false;}
+        else {
+          if(isNaN(offset_h)) {
+            offset_h=0;
+          }
+          var foo=(document.documentElement.clientHeight-e.innerHeight()-offset_h)/2;
+          console.log( document.documentElement.clientHeight+"-"+e.innerHeight()+"/2="+foo);
+          e.css({"top":(foo>0 ? foo : 0)+"px"});
+        }
+      }
       
       function position_footer(){
         if($(document).height() > window.innerHeight ) {
@@ -31,6 +42,22 @@ var Roots = {
           $('footer').css({"position":"absolute", "bottom":"1px"});
         }
       }
+      
+      function init_fullscreen_modal (iteration){
+        if( $("#goldring-modal-carousel").innerHeight() === 0){
+          console.log("not ready:"+iteration);
+          $("#goldring-modal-carousel").css({"opacity":"0"});
+          setTimeout(function(){init_fullscreen_modal(iteration++);},50);
+        } else  {
+          console.log("ready!");
+          vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+          $("#goldring-modal-carousel").css({"opacity":"1" , "transition":"opacity .5s ease"});
+        }
+      }
+      $(".open_fullscreen_presentation").on("click", function(){
+        init_fullscreen_modal(0);
+      });
+
       $("#footer_info_button").on("click mouseenter",function(e){
         $("footer").addClass("active");
         window.setTimeout(function(){
@@ -42,8 +69,13 @@ var Roots = {
       });
       
       $(window).resize( function(){
+        vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+        vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         position_footer();
       });
+      // first run...
+      vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+      vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
       position_footer();
       
     }
@@ -53,15 +85,6 @@ var Roots = {
     init: function() {
       // JavaScript to be fired on the home page
       
-      function vertically_center_element(e){
-        var foo=(document.documentElement.clientHeight-e.height()-$('main').offset().top)/2;
-        console.log( document.documentElement.clientHeight+"-"+e.height()+"/2="+foo );
-        e.css({"top":(foo>0 ? foo : 0)+"px"});
-      }
-      $(window).resize( function(){
-        vertically_center_element($("#feature_carousel"));
-      });
-      vertically_center_element($("#feature_carousel"));
     }
   },
   // About us page, note the change from about-us to about_us.

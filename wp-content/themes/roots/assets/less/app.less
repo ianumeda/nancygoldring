@@ -198,8 +198,8 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		list-style: none;
 		text-align: center;	
 	}
-	.carousel-indicators>.active {
-		background-color: rgba(0,0,0,0);
+	.carousel-indicators > .active {
+    box-shadow:0 0 10px -4px #fff;
 	}
 	.carousel-indicators>li {
 		text-indent: 0px;
@@ -207,7 +207,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		border: none;
 		border-radius: 0px;
 		width: 50px;
-		height: 50px;
+		height: auto;
 	}
 	.carousel-indicators>li>img {
 		width: 50px;	
@@ -226,7 +226,24 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 
 
-#myModal {
+.modal-backdrop.in { opacity:.9 } 
+#art_modal_fullscreen {
+  .modal-title {
+    font-size:2em; 
+    color:white;
+    .site_title { 
+      color:#e55;
+      text-transform:uppercase; 
+      letter-spacing:2px; 
+      font-weight:200;
+    }
+    .art_title {
+      margin-left:.5em;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+  }
+  overflow:hidden;
 	.carousel-inner>.item>img, .carousel-inner>.item>a>img, {  
 		margin: 0 auto;
 		height: 100%;
@@ -261,20 +278,49 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 	  padding: 0px;
 	}
 	.modal-footer {
+    border:none;
     margin-top: 0px;
     padding: 35px 20px;
     position: absolute;
-    top: 0;
+    bottom: 0;
   	}
 	.modal-header {
 		margin-top: 0px;
-		padding: 0px;
+		padding: 1em;
     border-bottom:none;
+    button.close { 
+      color: #fff;
+      opacity: .8;
+      padding: 10px 14px;
+      font-family: helvetica;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 100;
+      line-height: 26px;
+      border-radius: 6px;
+      transition: all .25s ease;
+      > span { 
+        font-size: 26px;
+        line-height: 18px;
+        top: 7px;
+        display: inline-block;
+        margin-left: 6px;
+      }
+      &:hover { opacity:1; background:rgba(255,255,255,.2); }
+    }
 	}
   .carousel-control:hover, .carousel-control:focus { background-color:none; }
-  .carousel-indicators { 
+  .carousel-indicators {
     position:fixed; 
     bottom:0;
+    li { 
+      .transition(background .4s);
+      border:1px solid #888;
+      background:rgba(0,0,0,0);
+      &.active { background:#aaa; }
+      &:hover { background:#fcfcfc; }
+    }
   }
 }
 // Fade transition for carousel items
@@ -302,19 +348,19 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     transition-delay: 0s;
   }
 }
-#feature_carousel {
-  .background-carousel { 
-    .background_image_container { 
-      background-position:center; 
-      -webkit-background-size: auto 100%; 
-      -moz-background-size: auto 100%; 
-      -o-background-size: auto 100%; 
-      background-size: auto 100%; 
-      background-repeat: no-repeat;
-      overflow:hidden;
-      height:540px;
-    }
+.background-carousel { 
+  .background_image_container { 
+    background-position:center; 
+    -webkit-background-size: auto 100%; 
+    -moz-background-size: auto 100%; 
+    -o-background-size: auto 100%; 
+    background-size: auto 100%; 
+    background-repeat: no-repeat;
+    overflow:hidden;
+    height:540px;
   }
+}
+#feature_carousel {
   .carousel-indicators {
     position:relative;
     bottom:-20px;
@@ -362,4 +408,3 @@ button.art_about {
     > span.glyphicon-plus { display:inline-block; }
   }
 }
-.modal-backdrop.in { opacity:.8 } 
