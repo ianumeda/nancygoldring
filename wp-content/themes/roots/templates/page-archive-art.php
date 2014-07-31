@@ -1,21 +1,14 @@
-				 <?php 
-				 // Featured POEM args
-				 $args = array(
-				 	'numberposts' => -1,
-				 	'post_type' => 'art',
-				 );
- 
-				 // get results
-				 $the_query = new WP_Query( $args );
- 
-				 // The Loop
-				 ?>
-				 <?php if( $the_query->have_posts() ): ?>
-				 	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-				 		<h6>
-				 		  <a href="<?php the_permalink(); ?>"><?php the_field('work-author'); ?>, <em><?php the_title(); ?></em></a>
-				 		</h6>
-				 	<?php endwhile; ?>
-				 <?php endif; ?>
- 
-				 <?php wp_reset_query();  // Restore global post data stomped by the_post(). ?>	
+
+
+<div id="container" class="js-packery"
+  data-packery-options='{ "itemSelector": ".item", "gutter": 10 }'>
+	
+		<?php $loop = new WP_Query( array( 'post_type' => 'art', 'posts_per_page' => -1 ) ); ?>
+		<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+	<div class="item">
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+		<?php the_excerpt(); ?>
+	</div>
+	
+	<?php endwhile; wp_reset_query(); ?>
+</div>
