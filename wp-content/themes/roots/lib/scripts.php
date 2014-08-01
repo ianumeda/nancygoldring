@@ -11,7 +11,7 @@
  * 3. /theme/assets/js/main.min.js (in footer)
  */
 function roots_scripts() {
-  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '5284941f88e81433e2cd2e0e6b0bb9f9');
+  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '72489605e9be7a57b42a4bd5401998b4');
   // CSS for Bootstrap-Modal-Carousel
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
@@ -28,7 +28,7 @@ function roots_scripts() {
   }
 
   wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
-  wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), '08bb77fc4098ceeb9ef211505c04aca8', true);
+  wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), 'b9385f4fedfa80f006e9d6d27db36f13', true);
   wp_register_script('carouselactivefirst', get_template_directory_uri() . '/assets/js/plugins/carouselactivefirst.js', array(), null, true);
   wp_register_script('packery', get_template_directory_uri() . '/assets/js/plugins/packery.pkgd.min.js', array(), null, true);
 
