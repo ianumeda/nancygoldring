@@ -11,7 +11,7 @@
  * 3. /theme/assets/js/main.min.js (in footer)
  */
 function roots_scripts() {
-  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'e91cfa7f84ca1f28281151221337f45a');
+  wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, 'd4720c0aed63bee903db8bd1b341a3e9');
   // CSS for Bootstrap-Modal-Carousel
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
