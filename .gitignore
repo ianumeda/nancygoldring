@@ -1,11 +1,6 @@
 
 .htaccess
 
-.htaccess
-
 wp-content/plugins/wordfence/tmp/configCache.php
 
-wp-content/themes/roots/assets/css/main.min.css
-
-wp-content/themes/roots/lib/scripts.php
 
