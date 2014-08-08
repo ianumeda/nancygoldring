@@ -113,7 +113,8 @@ var Roots = {
         });
         var snazzy_id=thumbnails.parent().attr("id"); // this assumes that .carousel-indicators is within the carousel div
         $('.carousel-control[href="#'+snazzy_id+'"]').on("click", function(event){
-          center_active_thumb(thumbnails);
+          // this makes it work with the left/right controls
+          center_active_thumb(thumbnails,false,$(this).attr("data-slide"));
         });
         thumbnails.css({left:center_active_thumb(thumbnails,true)+"px"});
         setTimeout(function(){
@@ -121,7 +122,7 @@ var Roots = {
           thumbnails.css({transition:"left 1s ease, opacity 1s ease", opacity:1});
         },500);
       }
-      function center_active_thumb(el,return_value){
+      function center_active_thumb(el,return_value,nextprev){
         // pass in the clicked thumbnail or the thumbnail container div and we'll figure out which is the active thumbnail from the class
         if(el===undefined) { return false; }
         else if(el.hasClass("carousel-indicators")){
@@ -129,10 +130,14 @@ var Roots = {
         } else {
           active_li=el;
         }
-        // console.log("center_active_thumb: "+active_li.position().left);
+        if(nextprev==="next"){
+          active_li=active_li.next();
+        } else if(nextprev==="prev"){
+          active_li=active_li.prev();
+        }
         var container_width=active_li.parent().parent().innerWidth();
         var thumbnails_width = active_li.parent().innerWidth();
-        var center_thumbnail_in_view= (thumbnails_width < container_width ? (container_width-thumbnails_width)/2 : active_li.position().left<container_width/2 ? 0 : (active_li.position().left>thumbnails_width-container_width/2 ? -thumbnails_width+container_width : -active_li.position().left+container_width/2));
+        var center_thumbnail_in_view= (thumbnails_width < container_width ? (container_width-thumbnails_width)/2 : active_li.position().left<container_width/2 ? 0 : (active_li.position().left>thumbnails_width-container_width/2 ? -thumbnails_width+container_width : -active_li.position().left-active_li.outerWidth()/2+container_width/2));
         if(return_value){
           return center_thumbnail_in_view;
         } else {
