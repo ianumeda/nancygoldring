@@ -123,12 +123,15 @@ var Roots = {
         },500);
       }
       function center_active_thumb(el,return_value,nextprev){
+        console.log(el);
         // pass in the clicked thumbnail or the thumbnail container div and we'll figure out which is the active thumbnail from the class
         if(el===undefined) { return false; }
-        else if(el.hasClass("carousel-indicators")){
+        else if(el.parent().hasClass("carousel-indicators")){
+          active_li=el;
+        } else if(el.hasClass("carousel-indicators")){
           active_li=el.find("li.active");
         } else {
-          active_li=el;
+          active_li=el.find(".carousel-indicators li.active");
         }
         if(nextprev==="next"){
           if(active_li.is(':last-child')){
@@ -153,20 +156,28 @@ var Roots = {
         }
       }
       
-      carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
+      if($(".snazzy_thumbnails").length){
+        carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
+      }
       
       $(window).resize( function(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         if($('#goldring-modal-carousel').length) { make_modal_presentation_big(); }
-        position_footer();
+        setTimeout(function(){
+          position_footer();
+        },5);
+        if($(".snazzy_thumbnails").length){
+          center_active_thumb($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
+        }
       });
-      // first run...
-      vertically_center_element( $("#feature_carousel"), $('main').offset().top );
-      // vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
-      position_footer();
-      
-    }
+        // first run...
+        vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+        // vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+        setTimeout(function(){
+          position_footer();
+        },5);
+      }
   },
   // Home page
   home: {
