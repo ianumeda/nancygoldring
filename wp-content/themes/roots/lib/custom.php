@@ -3,6 +3,55 @@
  * Custom functions
  */
 
+function get_reverse_linked_posts_of_type(){ 
+  // $custom_terms = get_terms('portfolio');
+
+  // foreach($custom_terms as $custom_term) {
+    
+    wp_reset_query();
+    $args = array('post_type' => 'portfolio',
+        'tax_query' => array(
+            array(
+                'field' => 'slug',
+                'terms' => $post->name,
+            ),
+        ),
+     );
+
+     echo "<foo>searching for ".$post->name." in portfolios</foo>";
+     $posts = get_posts($args);
+     if($posts){
+        return '<li>'.$posts[0]->name.'</li>';
+     }
+  // }
+}
+function get_shows_art($showID){
+  // returns an array of post id's of artwork associated with showID
+  $art_list=get_the_terms($showID, 'art');
+  if ( $art_list && ! is_wp_error( $art_list ) ) { 
+    $art_post_id_list=array();
+  	foreach ( $art_list as $art ) {
+      array_push($art_post_id_list,$art->term_id);
+    }
+    return $art_post_id_list;
+  } else return null;
+}
+function get_arts_shows($artID){ 
+  $art_post=get_post($artID);
+  $arts_show_postID_list=array();
+  // $all_art=get_posts( array('post_type'=>'piece', 'posts_per_page'=>-1) );
+  $all_shows=get_posts( array('post_type'=>'portfolio', 'posts_per_page'=>-1) );
+  foreach($all_shows as $this_show){
+    $this_shows_art=get_shows_art($this_show->ID);
+    foreach($this_shows_art as $this_shows_artID){
+      $this_shows_art_post=get_post($this_shows_artID);
+      if($this_shows_art_post->post_name == $art_post->post_name){
+        $arts_show_postID_list[]=$this_show->ID;
+      }
+    }
+  }
+  return $arts_show_postID_list;
+}
 /**
  * Custom Breadcrumb
  */
@@ -11,7 +60,17 @@ function custom_breadcrumb() {
   if(!is_home()) {
     echo '<ol class="breadcrumb">';
     echo '<li><a href="'.get_option('home').'">Nancy Goldring</a></li>';
-    if (is_single()) {
+    if ( is_singular( array( 'portfolio' ) ) ) {
+      echo '<li class="portfolio">';
+      the_title();
+      echo '</li>';
+    } elseif ( is_singular( array( 'art' ) ) ) {
+      $ports=get_arts_shows($post->ID);
+      echo '<li class="portfolio"><a href="'.get_permalink($ports[0]).'">'.get_the_title($ports[0]).'</a></li>';
+      echo '<li class="art">';
+      the_title();
+      echo '</li>';
+    } elseif (is_single()) {
       echo '<li>';
       the_category(', ');
       echo '</li>';
@@ -53,7 +112,7 @@ function custom_breadcrumb() {
     } elseif (is_search()) {
       echo'<li>Search Results';
       echo'</li>';
-    }
+    } 
     echo '</ol>';
   }
 }
@@ -79,8 +138,8 @@ function custom_breadcrumb() {
 //   $args = array(
 //     'hierarchical'      => false,
 //     'labels'            => $labels,
-//     'show_ui'           => true,
-//     'show_admin_column' => false,
+//     'portfolio_ui'           => true,
+//     'portfolio_admin_column' => false,
 //     'query_var'         => true,
 //     'rewrite'           => false,
 //   );

@@ -111,6 +111,10 @@ var Roots = {
         thumbnails.on("click","li",function(event){
           center_active_thumb($(this));
         });
+        var snazzy_id=thumbnails.parent().attr("id"); // this assumes that .carousel-indicators is within the carousel div
+        $('.carousel-control[href="#'+snazzy_id+'"]').on("click", function(event){
+          center_active_thumb(thumbnails);
+        });
         thumbnails.css({left:center_active_thumb(thumbnails,true)+"px"});
         setTimeout(function(){
           // have to delay setting the transitions on first run or else the thumbnails sweep in from the left when there are fewer than fill the screen
