@@ -115,7 +115,7 @@
 	 
 	 <!-- POST CAROUSEL GALLERY -->  
 	 
-	 <div id="GoldringCarousel" class="carousel slide" data-ride="carousel" data-interval="20000">
+	 <div id="GoldringCarousel" class="carousel slide snazzy_thumbnails" data-ride="carousel" data-interval="20000">
      <!-- Wrapper for slides -->
      <div class="carousel-inner">
        <?php echo $page_carousel_items; ?>

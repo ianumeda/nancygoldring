@@ -29,32 +29,30 @@
 		   		<?php
  		        $images = get_children( array( 'post_parent' => $art_post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
 		   		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
-		   		        if ( $images ) { 
- 		                //looping through the images
-                    $number=-1;
- 		                foreach ( $images as $attachment_id => $attachment ) {
-                      $number++;
- 		                ?>
+	        if ( $images ) { 
+            //looping through the images
+            $number=-1;
+            foreach ( $images as $attachment_id => $attachment ) {
+              $number++;
+            ?>
 
-									<div class="carousel-item item<?php echo ($number==0 ? ' active' : ''); ?>">
-   									
-								
-										<?php
-										$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'medium' );
+  					<div class="carousel-item item<?php echo ($number==0 ? ' active' : ''); ?>">
 
-										echo '<img class="img-responsive" src="'; echo $imageUrl[0]; echo '"/> ';
-										?>
-									</div>
-							        
+						<?php
+  						$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'medium' );
+  						echo '<img class="img-responsive" src="'; echo $imageUrl[0]; echo '"/> ';
+						?>
 
-		   		                <?php
-		   		                }
-		   		        }
-		   				?>
-			     </div>
-           <a class="coverall_link" href="<?php echo get_permalink($art_post_id); ?>"><span class="glyphicon glyphicon-chevron-right"></span></a>
-			   </div>
+  					</div>
 
+          <?php
+          }
+        }
+ 				?>
+     </div>
+     <a class="coverall_link" href="<?php echo get_permalink($art_post_id); ?>"><span class="glyphicon glyphicon-chevron-right"></span></a>
+   </div>
+   <p class="title"><?php echo get_the_title($art_post_id); ?></p>
 </div>
 			 <!-- /. POST CAROUSEL GALLERY -->
 			

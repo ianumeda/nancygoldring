@@ -177,6 +177,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 /* ==========================================================================
    Carousel Custom
    ========================================================================== */
+.snazzy_thumbnails .carousel-indicators { opacity:0; }
 #GoldringCarousel {
 	// background-color: gray;
 }
@@ -185,7 +186,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		margin: 20px auto;
 	}
 	.carousel-inner {
-		height: 500px;
+		height: 600px;
 	}
 	.carousel-indicators {
 		position: relative;
@@ -198,19 +199,32 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		list-style: none;
 		text-align: center;	
 	}
-	.carousel-indicators > .active {
-    box-shadow:0 0 10px -4px #fff;
+	.carousel-indicators > li.active {
+    background:rgba(255,255,255,0);
+    > img {
+      opacity:1;
+      box-shadow:0 0 10px 0px;
+    }
 	}
 	.carousel-indicators>li {
+    position:relative;
 		text-indent: 0px;
-		margin: 10px;
+		margin: 4px;
+    padding: 8px;
 		border: none;
 		border-radius: 0px;
-		width: 50px;
+		width: 66px;
 		height: auto;
-	}
-	.carousel-indicators>li>img {
-		width: 50px;	
+    > img {
+      opacity:.8;
+    	-webkit-transition: 0.5s ease;
+    	-moz-transition: 0.5s ease;
+    	-ms-transition: 0.5s ease;
+    	-o-transition: 0.5s ease;
+    	transition: 0.5s ease;
+  		width: 50px;	
+      box-shadow:0 0 10px -4px;
+  	}
 	}
 	.carousel-caption {
 	position: relative;
@@ -319,12 +333,14 @@ button.art_about {
 
 
 .js-packery>.pack-item { 
-	width: 250px;
-	height: 200px;    
+  width: 25%;
+  height: 240px;
+  padding:15px;
+  .title { margin-top:1em; }
 }
 
 .CurrentWorkCarousel {
-	height: 200px;
+  // height: 200px;
 	img {		
 		max-height: 150px;
 		margin: 0 auto;

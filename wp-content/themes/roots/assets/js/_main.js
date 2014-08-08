@@ -96,6 +96,42 @@ var Roots = {
           }
         });
       }
+      
+      // make carousel-indicators one row and follow selected image...
+
+      function carousel_thumbnail_snazziness(el){
+        if(el===undefined){
+          el=$('body');
+        }
+        var thumbnails=el.find(".carousel-indicators").first();
+        var one_thumbnail_width=thumbnails.children().first().outerWidth()+10;
+        var all_thumbnails_width=one_thumbnail_width*thumbnails.children().length; // thumbnails are one_thumbnail_width wide each
+        // console.log("one_thumbnail_width="+one_thumbnail_width+", all_thumbnails_width="+all_thumbnails_width+", thumbs="+thumbnails.children().length);
+        thumbnails.css({"text-align":"left", width:all_thumbnails_width+"px", transition:"left 1s ease, opacity 1s ease", opacity:1});
+        thumbnails.on("click","li",function(event){
+          center_active_thumb($(this));
+        });
+        center_active_thumb(thumbnails);
+        // thumbnails.css({opacity:1});
+      }
+      function center_active_thumb(el){
+        // pass in the clicked thumbnail or the thumbnail container div and we'll figure out which is the active thumbnail from the class
+        if(el===undefined) { return false; }
+        else if(el.hasClass("carousel-indicators")){
+          active_li=el.find("li.active");
+        } else {
+          active_li=el;
+        }
+        // console.log("center_active_thumb: "+active_li.position().left);
+        var container_width=active_li.parent().parent().innerWidth();
+        var thumbnails_width = active_li.parent().innerWidth();
+        var center_thumbnail_in_view= (thumbnails_width < container_width ? (container_width-thumbnails_width)/2 : active_li.position().left<container_width/2 ? 0 : (active_li.position().left>thumbnails_width-container_width/2 ? -thumbnails_width+container_width : -active_li.position().left+container_width/2));
+        
+        active_li.parent().css({left:center_thumbnail_in_view+'px'});
+      }
+      
+      carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
+      
       $(window).resize( function(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
