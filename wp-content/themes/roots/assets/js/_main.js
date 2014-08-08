@@ -131,9 +131,17 @@ var Roots = {
           active_li=el;
         }
         if(nextprev==="next"){
-          active_li=active_li.next();
+          if(active_li.is(':last-child')){
+            active_li=active_li.siblings(":first-child");
+          } else {
+            active_li=active_li.next();
+          }
         } else if(nextprev==="prev"){
-          active_li=active_li.prev();
+          if(active_li.is(':first-child')){
+            active_li=active_li.siblings(":last-child");
+          } else {
+            active_li=active_li.prev();
+          }
         }
         var container_width=active_li.parent().parent().innerWidth();
         var thumbnails_width = active_li.parent().innerWidth();
