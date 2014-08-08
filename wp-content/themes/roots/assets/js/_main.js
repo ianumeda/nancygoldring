@@ -107,14 +107,17 @@ var Roots = {
         var one_thumbnail_width=thumbnails.children().first().outerWidth()+10;
         var all_thumbnails_width=one_thumbnail_width*thumbnails.children().length; // thumbnails are one_thumbnail_width wide each
         // console.log("one_thumbnail_width="+one_thumbnail_width+", all_thumbnails_width="+all_thumbnails_width+", thumbs="+thumbnails.children().length);
-        thumbnails.css({"text-align":"left", width:all_thumbnails_width+"px", transition:"left 1s ease, opacity 1s ease", opacity:1});
+        thumbnails.css({"text-align":"left", width:all_thumbnails_width+"px"});
         thumbnails.on("click","li",function(event){
           center_active_thumb($(this));
         });
-        center_active_thumb(thumbnails);
-        // thumbnails.css({opacity:1});
+        thumbnails.css({left:center_active_thumb(thumbnails,true)+"px"});
+        setTimeout(function(){
+          // have to delay setting the transitions on first run or else the thumbnails sweep in from the left when there are fewer than fill the screen
+          thumbnails.css({transition:"left 1s ease, opacity 1s ease", opacity:1});
+        },500);
       }
-      function center_active_thumb(el){
+      function center_active_thumb(el,return_value){
         // pass in the clicked thumbnail or the thumbnail container div and we'll figure out which is the active thumbnail from the class
         if(el===undefined) { return false; }
         else if(el.hasClass("carousel-indicators")){
@@ -126,8 +129,11 @@ var Roots = {
         var container_width=active_li.parent().parent().innerWidth();
         var thumbnails_width = active_li.parent().innerWidth();
         var center_thumbnail_in_view= (thumbnails_width < container_width ? (container_width-thumbnails_width)/2 : active_li.position().left<container_width/2 ? 0 : (active_li.position().left>thumbnails_width-container_width/2 ? -thumbnails_width+container_width : -active_li.position().left+container_width/2));
-        
-        active_li.parent().css({left:center_thumbnail_in_view+'px'});
+        if(return_value){
+          return center_thumbnail_in_view;
+        } else {
+          active_li.parent().css({left:center_thumbnail_in_view+'px'});
+        }
       }
       
       carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
