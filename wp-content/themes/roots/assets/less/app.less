@@ -167,11 +167,31 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 /* ==========================================================================
    CUSTOM
    ========================================================================== */
+.breadcrumbs{
+  display: inline-block;
+}
 .breadcrumb {
+  margin-right:10px;
+  padding:0;
+  float:left;
 	background-color: transparent;
+  color:#aaa;
+  font-weight:100;
 	a {
-		color: #000;
+		color: #aaa;
+    &:hover { 
+      color:#000; 
+      text-decoration:none;
+    }
 	}
+  // li:after{ content:" / "; margin-left:.5em;}
+  li {
+    &+li:before {content:"•"; }
+    // &:last-child:after { content:" : "}
+    &:last-child { font-weight:100; font-size:20px; color:#444; 
+      &:before { font-size:1em; }
+    }
+  }
 }
 
 /* ==========================================================================
@@ -234,20 +254,71 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       } 
     }
 	}
-	.carousel-caption {
-	position: relative;
-	left: 0%;
-	z-index: 10;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	}
-	.carousel-caption {
-	
-	}
 }
 
-
-
+.carousel-caption {
+  position:relative; 
+  left:0; 
+  right:0; 
+  bottom:0; 
+  padding-bottom:0;  
+  font-weight: 100;
+  font-size: 12px;
+  text-shadow:none; 
+  color: #555;
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  .title { position:relative; text-align:center; }
+  .excerpt { position:relative; text-align:center;}
+}
+#art_post{
+  .post_title{
+    font-weight: 400;
+    color: #444;
+    font-size: 18px;
+  }  
+  #art_about { 
+    position: absolute;
+    z-index: 12;
+    box-shadow: 0px 3px 10px -4px;
+    height: auto;
+    background: white;  
+    padding:2em;
+  }
+  .art_about { 
+    color:inherit;
+  }
+}
+#art_post_buttons { 
+  float:left;
+  color:#555;
+  line-height:2em;
+  button{
+    background:#ccc;
+    &:hover { background:#ddd;}
+  }
+  .open_fullscreen_presentation {
+    color:inherit;
+    z-index:100;
+    a { 
+      color: #555;
+      &:hover {
+        text-decoration:none;
+        // color:#aaa;
+      }
+    }
+  }
+  .art_about {
+    a { 
+      color: #555;
+      &:hover {
+        text-decoration:none;
+        // color:#aaa;
+      }
+    }
+  }
+}
 // Fade transition for carousel items
 .carousel {
   .item {
@@ -297,17 +368,6 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       &:hover { background:#fcfcfc; }
     }
   }
-  .carousel-caption { 
-    position:relative; 
-    left:0; 
-    right:0; 
-    bottom:0; 
-    padding-bottom:0;  
-    font-weight: 100;
-    font-size: 12px;
-    color:#333;
-    text-shadow:none; 
-  }
 }
 a.carousel-control {
   color:#aaa;
@@ -341,7 +401,7 @@ button.art_about {
 
 
 .js-packery>.pack-item { 
-  width: 25%;
+  width: 33%;
   height: 240px;
   padding:15px;
   .title { margin-top:1em; }
@@ -354,11 +414,21 @@ button.art_about {
 		margin: 0 auto;
 	}
 }
-
+.modal-backdrop{
+  background: rgba(102,102,102,1);
+  background: -moz-linear-gradient(top, rgba(102,102,102,1) 0%, rgba(61,61,61,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(102,102,102,1)), color-stop(100%, rgba(61,61,61,1)));
+  background: -webkit-linear-gradient(top, rgba(102,102,102,1) 0%, rgba(61,61,61,1) 100%);
+  background: -o-linear-gradient(top, rgba(102,102,102,1) 0%, rgba(61,61,61,1) 100%);
+  background: -ms-linear-gradient(top, rgba(102,102,102,1) 0%, rgba(61,61,61,1) 100%);
+  background: linear-gradient(to bottom, rgba(102,102,102,1) 0%, rgba(61,61,61,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#3d3d3d', GradientType=0 );
+}
 .modal-backdrop.in { opacity:1 } 
 #art_modal_fullscreen {
+  .carousel-caption { color:#ccc; }
   .item.background-carousel { 
-    padding:10%;
+    padding:60px 60px 120px;
     top:0;
     right:0;
     bottom:0;
@@ -367,17 +437,17 @@ button.art_about {
     > .background_image_container { width:100%; height:540px; }
   }
   .modal-title {
-    font-size:2em; 
+    font-size:1.6em; 
     color:white;
     .site_title { 
       color:#e55;
       text-transform:uppercase; 
       letter-spacing:2px; 
-      font-weight:200;
+      font-weight:100;
     }
     .art_title {
       margin-left:.5em;
-      font-weight:700;
+      font-weight:100;
       letter-spacing:1px;
     }
   }

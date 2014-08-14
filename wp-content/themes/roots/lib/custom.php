@@ -3,28 +3,6 @@
  * Custom functions
  */
 
-function get_reverse_linked_posts_of_type(){ 
-  // $custom_terms = get_terms('portfolio');
-
-  // foreach($custom_terms as $custom_term) {
-    
-    wp_reset_query();
-    $args = array('post_type' => 'portfolio',
-        'tax_query' => array(
-            array(
-                'field' => 'slug',
-                'terms' => $post->name,
-            ),
-        ),
-     );
-
-     echo "<foo>searching for ".$post->name." in portfolios</foo>";
-     $posts = get_posts($args);
-     if($posts){
-        return '<li>'.$posts[0]->name.'</li>';
-     }
-  // }
-}
 function get_shows_art($showID){
   // returns an array of post id's of artwork associated with showID
   $art_list=get_the_terms($showID, 'art');
@@ -57,16 +35,32 @@ function get_arts_shows($artID){
  */
 
 function custom_breadcrumb() {
+  global $post; 
   if(!is_home()) {
-    echo '<ol class="breadcrumb">';
-    echo '<li><a href="'.get_option('home').'">Nancy Goldring</a></li>';
+    echo '<div class="breadcrumbs"><ol class="breadcrumb">';
+    // echo '<li><a href="'.get_option('home').'">Nancy Goldring</a></li>';
     if ( is_singular( array( 'portfolio' ) ) ) {
+      $ancestors=get_ancestors($post->ID, 'portfolio');
+      if(count($ancestors)>0){
+        foreach($ancestors as $anscestor){
+          echo '<li><a href="'.get_permalink($anscestor).'">'.get_the_title($anscestor).'</a></li>';
+        }
+      }
       echo '<li class="portfolio">';
       the_title();
       echo '</li>';
     } elseif ( is_singular( array( 'art' ) ) ) {
-      $ports=get_arts_shows($post->ID);
-      echo '<li class="portfolio"><a href="'.get_permalink($ports[0]).'">'.get_the_title($ports[0]).'</a></li>';
+      $portfolios=get_arts_shows($post->ID);
+      if($portfolios){
+        $portfolio=$portfolios[0];
+        $ancestors=get_ancestors($portfolio, 'portfolio');
+        if(count($ancestors)>0){
+          foreach($ancestors as $anscestor){
+            echo '<li><a href="'.get_permalink($anscestor).'">'.get_the_title($anscestor).'</a></li>';
+          }
+        }
+      }
+      echo '<li class="portfolio"><a href="'.get_permalink($portfolio).'">'.get_the_title($portfolio).'</a></li>';
       echo '<li class="art">';
       the_title();
       echo '</li>';
@@ -113,7 +107,7 @@ function custom_breadcrumb() {
       echo'<li>Search Results';
       echo'</li>';
     } 
-    echo '</ol>';
+    echo '</ol></div>';
   }
 }
 

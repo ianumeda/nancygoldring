@@ -1,66 +1,119 @@
-<div id="container" class="js-packery" data-packery-options='{ "itemSelector": ".pack-item" }'>
-	
-		<?php 
-    
-    $art_list=get_the_terms($post->ID, 'art');
-    if ( $art_list && ! is_wp_error( $art_list ) ) { 
-      $art_post_id_list=array();
-    	foreach ( $art_list as $art ) {
-        array_push($art_post_id_list,$art->term_id);
+<?php
+function get_image_within($id){
+  // this returns a single image attachment id
+  // always default on featured image otherwise...
+  // if 'portfolio' (1) get child art posts or (2) get child portfolio posts,
+  // if 'art' get first attachment
+  if(get_post_type($id)=='attachment') {return $id;}
+  if (has_post_thumbnail( $id ) ){
+    return get_post_thumbnail_id( $id );
+  }
+  else
+  {
+    if(get_post_type($id)=='art'){
+      // return the first attached image id
+      $children = get_children( array( 'post_parent' => $id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
+      foreach($children as $child){
+        return $child;
       }
-    }  
-    // $loop = new WP_Query( array( 'post_type' => 'art', 'posts_per_page' => -1 ) );
-    
-    ?>
-		<?php //while ( $loop->have_posts() ) : $loop->the_post(); 
-      foreach($art_post_id_list as $art_post_id){ 
-        // $art_post=get_post($art_post_id);
-    ?>
-		
-		
-		<div class="pack-item text-center">
-			
-			 <!-- POST CAROUSEL GALLERY -->  
-	 
-			 <div id="CurrentWorkCarousel<?php the_id() ?>" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="<?php echo round(rand(8000000,16000000)/1000); ?>">
-		 
-			   <!-- Wrapper for slides -->
-			   <div class="carousel-inner">
-		   		<?php
- 		        $images = get_children( array( 'post_parent' => $art_post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) ); 
-		   		/* $images is now a object that contains all images (related to post id 1) and their information ordered like the gallery interface. */
-	        if ( $images ) { 
-            //looping through the images
-            $number=-1;
-            foreach ( $images as $attachment_id => $attachment ) {
-              $number++;
-            ?>
-
-  					<div class="carousel-item item<?php echo ($number==0 ? ' active' : ''); ?>">
-
-						<?php
-  						$imageUrl = wp_get_attachment_image_src( $attachment->ID, 'medium' );
-  						echo '<img class="img-responsive" src="'; echo $imageUrl[0]; echo '"/> ';
-						?>
-
-  					</div>
-
-          <?php
-          }
+      // or return null if there is no attached image
+      return null;
+    }
+    elseif(get_post_type($id)=='portfolio')
+    {
+      //search for associated art posts first and recursively run this function for an image
+      $art_list=get_the_terms($id, 'art');
+      if ( $art_list && !is_wp_error( $art_list ) ) {
+        foreach($art_list as $art){
+          // $image=get_image_within($art->term_id));
+          if($image) return $image;
         }
- 				?>
-     </div>
-     <a class="coverall_link" href="<?php echo get_permalink($art_post_id); ?>"><span class="glyphicon glyphicon-chevron-right"></span></a>
-   </div>
-   <p class="title"><?php echo get_the_title($art_post_id); ?></p>
-</div>
-			 <!-- /. POST CAROUSEL GALLERY -->
-			
-			
-			
+      } else {
+        // search id for porfolio children
+        $children = get_children( array( 'post_parent' => $id, 'post_type' => 'portfolio', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
+        foreach($children as $child){
+          // $image=get_image_within($child);
+          if($image) return $image;
+        }
+        return null;
+      }
+    }
+  }
+  return null;
+}
+
+function get_grid_item($id){
+  // gets slides from art or portfolio posts
+  // gets featured image or first attached image in art posts within the portfolio
+  $grid_item='<div class="pack-item text-center">';
+
+  $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="'.round(rand(8000000,16000000)/1000).'">';
+  $grid_item.='<div class="carousel-inner">';
+
+  $p_children = get_children( array( 'post_parent' => $id, 'post_type' => 'portfolio', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
+  $a_children =get_the_terms($id, 'art');
+  $attachments = get_children( array( 'post_parent' => $id, 'post_type' => 'attachment', 'mime_type'=>'image', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
+  $slides=array();
+
+  if ( $a_children && !is_wp_error( $a_children ) ) {
+    foreach($a_children as $art){
+      $slides[]=$art->term_id;
+    }
+  }
+
+  if ( count($p_children)>0 ) {
+    foreach ( $children as $key => $value ) {
+      $slides[]=$key;
+    }
+  }
+  if(count($attachments)>0){
+    foreach($attachments as $key => $value){
+      $slides[]=$key;
+    }
+  }
+
+  $number=-1;
+
+  foreach($slides as $slide){
+    $number++;
+    $grid_item.='<div class="carousel-item item'.($number==0 ? ' active' : '').'">';
+    $imageUrl = wp_get_attachment_image_src( get_image_within($slide), 'small' );
+    $grid_item.='<img class="img-responsive" src="'.$imageUrl[0].'"/>';
+    $grid_item.='</div>';
+  }
+  $grid_item.='</div>
+               <a class="coverall_link" href="'.get_permalink($id).'"><span class="glyphicon glyphicon-chevron-right"></span></a>
+             </div>
+             <p class="title">'.get_the_title($id).'</p>
+           </div>';
+  return $grid_item;
+}
+
+?>
+<article id="portfolio_post" <?php post_class(); ?>>
+<div class="row">
+<div id="container" class="js-packery" data-packery-options='{ "itemSelector":".pack-item" }'>
 	
-	<?php } //endwhile; wp_reset_query(); ?>
+<?php 
+    
+  $art_list=get_the_terms($post->ID, 'art');
+  $art_post_id_list=array();
+
+  if ( $art_list && ! is_wp_error( $art_list ) ) {
+    foreach ( $art_list as $art ) {
+      array_push($art_post_id_list,$art->term_id);
+    }
+  }
+
+  $portfolio_list=get_children( array( 'post_parent' => $post->ID, 'post_type' => 'portfolio', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
+  foreach($portfolio_list as $key=>$value){
+    array_push($art_post_id_list,$key);
+  }
+
+  foreach($art_post_id_list as $art_post_id){
+    echo get_grid_item($art_post_id);
+  }
+?>
 </div>
-
-
-
+</div>
+</article>
