@@ -50,7 +50,7 @@ var Roots = {
           setTimeout(function(){init_fullscreen_modal(iteration++);},500);
         } else  {
           vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
-          make_modal_presentation_big($("#goldring-modal-carousel"));
+          make_background_carousel_fit($("#goldring-modal-carousel"));
           $("#goldring-modal-carousel").css({"opacity":"1" , "transition":"opacity .5s ease"});
         }
       }
@@ -78,7 +78,7 @@ var Roots = {
       $("#post_content_modal").collapse({ toggle: false });
       
       
-      function make_modal_presentation_big(el){
+      function make_background_carousel_fit(el){
         el.find(".background_image_container").each(function(){
           // this function sizes the carousel images to the size of the parent container divs
           if( $(this).parent().css("display")==="none"){
@@ -168,8 +168,9 @@ var Roots = {
       function on_resize(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
-        if($('#goldring-modal-carousel').length) { make_modal_presentation_big($('#goldring-modal-carousel')); }
-        if($('#GoldringCarousel').length) { make_modal_presentation_big($('#GoldringCarousel')); }
+        if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
+        if($('#GoldringCarousel').length) { make_background_carousel_fit($('#GoldringCarousel')); }
+        if($("#feature_carousel").length) { make_background_carousel_fit($("#feature_carousel")); }
         setTimeout(function(){
           position_footer();
         },5);
