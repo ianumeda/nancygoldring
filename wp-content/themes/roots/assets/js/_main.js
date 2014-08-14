@@ -69,13 +69,17 @@ var Roots = {
       $('footer').on('mouseleave', function(){
         $("footer").removeClass("active");
       });
-      $('#art_about').on('shown.bs.collapse hidden.bs.collapse', function () {
-        // adjusts footer when art_about is shown and hidden
-        position_footer();
-      }).on('click',function(event){
-        // alert("art_about click!");
+      $('#art_about').on('click',function(event){
+        alert("art_about click!");
         event.stopPropagation();
       });
+      $('html').click(function() {
+        $("#art_about").collapse('hide');
+        //Hide the about text if visible
+      });
+      // initialize art about collapse 
+      $("#art_about").collapse({ toggle: false });
+      
       
       function make_modal_presentation_big(){
         $("#goldring-modal-carousel .background_image_container").each(function(){
@@ -166,10 +170,6 @@ var Roots = {
       if($(".snazzy_thumbnails").length){
         carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
       }
-      $('html').click(function() {
-        $("#art_about").collapse('hide');
-        //Hide the about text if visible
-      });
 
       $(window).resize( function(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
@@ -189,6 +189,8 @@ var Roots = {
       setTimeout(function(){
         position_footer();
       },5);
+      
+      // the following moves the art_post_buttons into the .breadcrumbs div in the art_posts
       if($("#art_post_buttons").length){
         $("#art_post_buttons").appendTo($(".breadcrumbs"));
       }
