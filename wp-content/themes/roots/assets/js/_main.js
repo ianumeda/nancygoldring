@@ -22,6 +22,7 @@ var Roots = {
   // All pages
   common: {
     init: function() {
+      var resize_delay; // used to throttle resizing functions
       // JavaScript to be fired on all pages
       function vertically_center_element(e, offset_h){
         if(!e.length) {return false;}
@@ -30,7 +31,6 @@ var Roots = {
             offset_h=0;
           }
           var foo=(document.documentElement.clientHeight-e.innerHeight()-offset_h)/2;
-          console.log( document.documentElement.clientHeight+"-"+e.innerHeight()+"/2="+foo);
           e.css({"top":(foo>0 ? foo : 0)+"px"});
         }
       }
@@ -46,13 +46,11 @@ var Roots = {
       function init_fullscreen_modal (iteration){
         // this function ensures that the resizing of the modal presentation happens before you see it. All the sizing can only happen with the modal is active. Otherwise the sizes are all zero.
         if( $("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0){
-          console.log("not ready:"+iteration);
           $("#goldring-modal-carousel").css({"opacity":"0"});
           setTimeout(function(){init_fullscreen_modal(iteration++);},500);
         } else  {
-          console.log("ready!");
           vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
-          make_modal_presentation_big();
+          make_modal_presentation_big($("#goldring-modal-carousel"));
           $("#goldring-modal-carousel").css({"opacity":"1" , "transition":"opacity .5s ease"});
         }
       }
@@ -80,14 +78,15 @@ var Roots = {
       $("#post_content_modal").collapse({ toggle: false });
       
       
-      function make_modal_presentation_big(){
-        $("#goldring-modal-carousel .background_image_container").each(function(){
+      function make_modal_presentation_big(el){
+        el.find(".background_image_container").each(function(){
           // this function sizes the carousel images to the size of the parent container divs
           if( $(this).parent().css("display")==="none"){
             // this is because elements with display:none have zero height 
             $(this).parent().css({display:"block",visibility:"hidden"}); // hack!
           }
-          $(this).height($(this).parent().height()); // this sets the height of the image div to the max height of the container
+          adjustment=$(this).parent().find('.carousel-caption').outerHeight();
+          $(this).height($(this).parent().height()-adjustment); // this sets the height of the image div to the max height of the container
 
           var parent_h=$(this).parent().height();
           var parent_w=$(this).parent().width();
@@ -95,7 +94,6 @@ var Roots = {
           // the following gets the background image dimensions so we can set the background-size so that it doesn't get cut off
           var img = new Image();
           img.src = $(this).css('background-image').replace(/url\(|\)$/ig, "");
-          // console.log(img.width+" x "+img.height);
           if( parent_h / parent_w > img.height/img.width ){
             $(this).css({'background-size':'100% auto'});
           } else {
@@ -116,7 +114,6 @@ var Roots = {
         var thumbnails=el.find(".carousel-indicators").first();
         var one_thumbnail_width=thumbnails.children().first().outerWidth()+10;
         var all_thumbnails_width=one_thumbnail_width*thumbnails.children().length; // thumbnails are one_thumbnail_width wide each
-        // console.log("one_thumbnail_width="+one_thumbnail_width+", all_thumbnails_width="+all_thumbnails_width+", thumbs="+thumbnails.children().length);
         thumbnails.css({"text-align":"left", width:all_thumbnails_width+"px"});
         thumbnails.on("click","li",function(event){
           center_active_thumb($(this));
@@ -133,7 +130,6 @@ var Roots = {
         },500);
       }
       function center_active_thumb(el,return_value,nextprev){
-        console.log(el);
         // pass in the clicked thumbnail or the thumbnail container div and we'll figure out which is the active thumbnail from the class
         if(el===undefined) { return false; }
         else if(el.parent().hasClass("carousel-indicators")){
@@ -169,17 +165,25 @@ var Roots = {
       if($(".snazzy_thumbnails").length){
         carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
       }
-
-      $(window).resize( function(){
+      function on_resize(){
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
-        if($('#goldring-modal-carousel').length) { make_modal_presentation_big(); }
+        if($('#goldring-modal-carousel').length) { make_modal_presentation_big($('#goldring-modal-carousel')); }
+        if($('#GoldringCarousel').length) { make_modal_presentation_big($('#GoldringCarousel')); }
         setTimeout(function(){
           position_footer();
         },5);
         if($(".snazzy_thumbnails").length){
           center_active_thumb($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
         }
+      }
+
+      $(window).resize( function(){
+        if(resize_delay){
+          window.clearTimeout(resize_delay);
+          resize_delay=0;
+        }
+        resize_delay=setTimeout(on_resize, 500);
       });
 
       // first run...
@@ -188,6 +192,7 @@ var Roots = {
       setTimeout(function(){
         position_footer();
       },5);
+      on_resize();
       
       // the following moves the art_post_buttons into the .breadcrumbs div in the art_posts
       if($("#art_post_buttons").length){

@@ -40,7 +40,7 @@
    	                 <div id="goldring-modal-carousel" class="carousel slide" data-interval="0">
                       <!-- Indicators -->
                      <!-- Wrapper for slides -->
-                     <div class="carousel-inner">
+                     <div class="carousel-inner col-xs-12 col-sm-10 col-sm-push-1">
 				   
       		      		<?php
       		   				$number = 0;

@@ -200,15 +200,14 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    ========================================================================== */
 .snazzy_thumbnails .carousel-indicators { opacity:0; }
 #GoldringCarousel {
-	// background-color: gray;
-}
-#GoldringCarousel {
+  padding:0 0 60px;
   overflow-x:hidden;
 	.carousel-inner>.item>img, .carousel-inner>.item>a>img {  
 		margin: 20px auto;
 	}
 	.carousel-inner {
 		height: 600px;
+    padding-bottom:60px;
 	}
 	.carousel-indicators {
 		position: relative;
@@ -351,10 +350,11 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     -webkit-background-size: auto 100%; 
     -moz-background-size: auto 100%; 
     -o-background-size: auto 100%; 
-    background-size: auto 100%; 
+    background-size: 100% auto; 
     background-repeat: no-repeat;
     overflow:hidden;
-    height:540px;
+    height:480px;
+    margin:0 auto;
   }
 }
 #feature_carousel {
@@ -432,7 +432,7 @@ button.art_about {
 #art_modal_fullscreen {
   .carousel-caption { color:#ccc; }
   .item.background-carousel { 
-    padding:60px 60px 120px;
+    padding:60px 15px 120px;
     top:0;
     right:0;
     bottom:0;
@@ -448,11 +448,12 @@ button.art_about {
       text-transform:uppercase; 
       letter-spacing:2px; 
       font-weight:100;
+      margin-right:.5em;
     }
     .art_title {
-      margin-left:.5em;
       font-weight:100;
       letter-spacing:1px;
+      display:inline-block;
     }
   }
   overflow:hidden;
