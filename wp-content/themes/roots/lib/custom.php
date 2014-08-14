@@ -111,39 +111,6 @@ function custom_breadcrumb() {
   }
 }
 
-//
-// add_action( 'init', 'create_current_artwork_taxonomy', 0 );
-//
-// // create two taxonomies, genres and writers for the post type "book"
-// function create_current_artwork_taxonomy() {
-//   // Add new taxonomy, make it hierarchical (like categories)
-//   $labels = array(
-//     'name'              => _x( 'Current Work', 'taxonomy general name' ),
-//     'singular_name'     => _x( 'Current Work', 'taxonomy singular name' ),
-//     'search_items'      => __( 'Search Current Work' ),
-//     'all_items'         => __( 'All Current Work' ),
-//     'edit_item'         => __( 'Edit Current Work' ),
-//     'update_item'       => __( 'Update Current Work' ),
-//     'add_new_item'      => __( 'Add New Current Work' ),
-//     'new_item_name'     => __( 'New Current Work' ),
-//     'menu_name'         => __( 'Current Artwork' ),
-//   );
-//
-//   $args = array(
-//     'hierarchical'      => false,
-//     'labels'            => $labels,
-//     'portfolio_ui'           => true,
-//     'portfolio_admin_column' => false,
-//     'query_var'         => true,
-//     'rewrite'           => false,
-//   );
-//
-//   register_taxonomy( 'current_work', array( 'art' ), $args );
-//
-//
-// }
-
-
 /**
  * MORE
  */

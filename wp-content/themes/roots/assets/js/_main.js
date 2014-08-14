@@ -69,16 +69,15 @@ var Roots = {
       $('footer').on('mouseleave', function(){
         $("footer").removeClass("active");
       });
-      $('#art_about').on('click',function(event){
-        alert("art_about click!");
+      $('#post_content_modal').on('click',function(event){
         event.stopPropagation();
       });
       $('html').click(function() {
-        $("#art_about").collapse('hide');
+        $("#post_content_modal").collapse('hide');
         //Hide the about text if visible
       });
       // initialize art about collapse 
-      $("#art_about").collapse({ toggle: false });
+      $("#post_content_modal").collapse({ toggle: false });
       
       
       function make_modal_presentation_big(){

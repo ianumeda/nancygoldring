@@ -1,3 +1,4 @@
+<?php while (have_posts()) : the_post(); ?>
 <?php
 function get_image_within($id){
   // this returns a single image attachment id
@@ -91,8 +92,21 @@ function get_grid_item($id){
 
 ?>
 <article id="portfolio_post" <?php post_class(); ?>>
-<div class="row">
-<div id="container" class="js-packery" data-packery-options='{ "itemSelector":".pack-item" }'>
+  <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
+  <div id="art_post_buttons">
+    <button type="button" class="btn btn-xs post_content_modal" >
+      <a href="#" data-toggle="collapse" data-target="#post_content_modal">About</a>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+      <div id="post_content_modal" class="collapse">
+  			<?php the_content() ?>
+      </div>
+		</div>
+	</div>
+  <?php } ?>
+  <div id="container" class="js-packery" data-packery-options='{ "itemSelector":".pack-item" }'>
 	
 <?php 
     
@@ -114,6 +128,6 @@ function get_grid_item($id){
     echo get_grid_item($art_post_id);
   }
 ?>
-</div>
-</div>
+  </div>
 </article>
+<?php endwhile; ?>

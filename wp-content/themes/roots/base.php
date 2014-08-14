@@ -21,12 +21,6 @@
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
 		  
-		  <?php
-		    if ( function_exists('custom_breadcrumb') && (is_front_page()!=true) ) {
-          custom_breadcrumb();
-		    }
-		  ?>
-		  
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->
 

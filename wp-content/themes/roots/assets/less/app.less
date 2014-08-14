@@ -186,8 +186,9 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 	}
   // li:after{ content:" / "; margin-left:.5em;}
   li {
-    &+li:before {content:"•"; }
-    // &:last-child:after { content:" : "}
+    &+li:before { content:""; padding:0; }
+    &:after {content:" : "; padding:.5em; }
+    &:last-child:after { content:""}
     &:last-child { font-weight:100; font-size:20px; color:#444; 
       &:before { font-size:1em; }
     }
@@ -272,23 +273,23 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   .title { position:relative; text-align:center; }
   .excerpt { position:relative; text-align:center;}
 }
+#post_content_modal { 
+  position: absolute;
+  z-index: 12;
+  box-shadow: 0px 3px 10px -4px;
+  height: auto;
+  background: white;  
+  padding:2em;
+}
+.post_content_modal a { 
+  color:#555;
+}
 #art_post{
   .post_title{
     font-weight: 400;
     color: #444;
     font-size: 18px;
   }  
-  #art_about { 
-    position: absolute;
-    z-index: 12;
-    box-shadow: 0px 3px 10px -4px;
-    height: auto;
-    background: white;  
-    padding:2em;
-  }
-  .art_about { 
-    color:inherit;
-  }
 }
 #art_post_buttons { 
   float:left;
@@ -309,7 +310,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       }
     }
   }
-  .art_about {
+  .post_content_modal {
     a { 
       color: #555;
       &:hover {
@@ -393,7 +394,10 @@ button.art_about {
     > span.glyphicon-plus { display:inline-block; }
   }
 }
-
+.page-header { 
+  margin:0;
+  border-bottom:none;
+}
 /* ==========================================================================
    Packery Custom
    ========================================================================== */
