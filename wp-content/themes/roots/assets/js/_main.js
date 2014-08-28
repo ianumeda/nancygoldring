@@ -24,6 +24,7 @@ var Roots = {
     init: function() {
       var resize_delay; // used to throttle resizing functions
       // JavaScript to be fired on all pages
+
       function vertically_center_element(e, offset_h){
         if(!e.length) {return false;}
         else {
@@ -214,9 +215,23 @@ var Roots = {
     }
   },
   // About us page, note the change from about-us to about_us.
-  about_us: {
+  contact: {
     init: function() {
-      // JavaScript to be fired on the about us page
+      // JavaScript to be fired on the contact page
+      function vertically_center_element(e, offset_h){
+        if(!e.length) {return false;}
+        else {
+          if(isNaN(offset_h)) {
+            offset_h=0;
+          }
+          var foo=(document.documentElement.clientHeight-e.innerHeight()-offset_h)/2;
+          e.css({"position":"relative", "margin-top":(foo>0 ? foo : 0)+"px"});
+          console.log(foo+", "+offset_h);
+        }
+      }
+      contact_content=$("main").children("p").first();
+      main_offset=$("main").offset();
+      vertically_center_element( contact_content , main_offset.top+contact_content.innerHeight());
     }
   }
 };
