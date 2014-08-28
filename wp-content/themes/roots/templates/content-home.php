@@ -4,7 +4,7 @@
 	<div class="entry-content">
 
 <?php 
-$query = new WP_Query( array( 'post_type' => 'page', 'post_parent' => $post->ID, 'posts_per_page' => '999' ,'order' =>'ASC' ) ); 
+$query = new WP_Query( array( 'post_type' => 'page', 'post_parent' => $post->ID, 'posts_per_page' => '999' ,'orderby' =>'menu_order' ) ); 
 if ( $query->have_posts() ) {
 ?>
 <div class="row">

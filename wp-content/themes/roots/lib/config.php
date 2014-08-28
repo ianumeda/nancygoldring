@@ -21,9 +21,11 @@ function roots_main_class() {
   if (roots_display_sidebar()) {
     // Classes on pages with the sidebar
     $class = 'col-sm-8';
+  } elseif(get_post_type( get_the_ID() ) ==='art' || get_post_type( get_the_ID() ) ==='portfolio' || is_front_page() ) {
+    $class = 'col-xs-12';
   } else {
     // Classes on full width pages
-    $class = 'col-sm-12';
+    $class = 'col-xs-12 col-sm-8 col-sm-push-2';
   }
 
   return $class;
@@ -54,6 +56,8 @@ function roots_display_sidebar() {
      * The second element must be an array even if there's only 1 argument.
      */
     array(
+      'is_category',
+      'is_archive',
       'is_404',
       'is_page',
 	  'is_single'

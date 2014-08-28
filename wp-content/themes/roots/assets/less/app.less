@@ -38,6 +38,16 @@ body {
 
 .banner { 
   a.navbar-brand { 
+    border-top: 1px solid #555;
+    height: 46px;
+    border-left: 1px solid #555;
+    border-right: 1px solid #555;
+    margin-top: 4px;
+    line-height: 8px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-color: transparent;
+    box-shadow: 0 -4px 10px -3px rgba(0,0,0,.5);
     color: #e55;
     text-transform: uppercase;
     font-weight: 100;
@@ -52,7 +62,27 @@ body {
    Content
    ========================================================================== */
 
-.content { }
+.content {
+  .thumbnail { 
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+  }
+  p {
+    text-align:justify;
+    & > img { 
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1em;
+    }
+    &> br { content:""; display:block; margin: 0 0 .6em; }
+  }
+  .thumbnail { 
+    background:none;
+    border:none;
+    
+  }
+}
 
 
 
@@ -293,7 +323,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   float:left;
   color:#555;
   line-height:2em;
-  button{
+  a {
     background:#ccc;
     &:hover { background:#ddd;}
   }
@@ -308,21 +338,29 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       }
     }
   }
-  .post_content_modal {
-    a { 
-      color: #555;
-      &:hover {
-        text-decoration:none;
-        // color:#aaa;
-      }
+  a.post_content_modal { 
+    color: #555;
+    &:hover {
+      text-decoration:none;
+      // color:#aaa;
     }
   }
 }
 // Fade transition for carousel items
 .carousel {
+  .carousel-inner{
+    .item {
+      -webkit-transition-delay: 5s; /* Safari */
+      transition-delay: 5s;
+      &.active {
+        -webkit-transition-delay: 0s; /* Safari */
+        transition-delay: 0s;
+      }
+    }
+  }
   .item {
     left: 0 !important;
-    .transition(opacity .6s); //adjust timing here
+    .transition(opacity 1.5s); //adjust timing here
   }
   .carousel-control {
     background-image: none; // remove background gradients on controls
@@ -332,15 +370,11 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   .prev.right {
     opacity: 1;
     z-index: 1;
-    -webkit-transition-delay: 1s; /* Safari */
-    transition-delay: 1s;
   }
   .active.left,
   .active.right {
     opacity: 0;
     z-index: 2;
-    -webkit-transition-delay: 0s; /* Safari */
-    transition-delay: 0s;
   }
 }
 .background-carousel { 
@@ -407,7 +441,7 @@ button.art_about {
   width: 33%;
   height: 240px;
   padding:15px;
-  .title { margin-top:1em; }
+  .title { text-align:center; margin-top:1em; }
 }
 
 .CurrentWorkCarousel {

@@ -1,6 +1,5 @@
 <?php while (have_posts()) : the_post(); ?>
 <div class="row">
-  <div class="col-xs-12 col-sm-8 col-sm-push-2">
   <article <?php post_class(); ?>>
     <header>
 		  <?php
@@ -21,6 +20,5 @@
       <?php wp_link_pages(array('before' => '<nav class="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>')); ?>
     </footer>
   </article>
-</div>
 </div>
 <?php endwhile; ?>

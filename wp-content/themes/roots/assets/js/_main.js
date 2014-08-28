@@ -45,9 +45,10 @@ var Roots = {
       
       function init_fullscreen_modal (iteration){
         // this function ensures that the resizing of the modal presentation happens before you see it. All the sizing can only happen with the modal is active. Otherwise the sizes are all zero.
-        if( $("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0){
+        if($("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0){
           $("#goldring-modal-carousel").css({"opacity":"0"});
-          setTimeout(function(){init_fullscreen_modal(iteration++);},500);
+          console.log("item height === 0, "+iteration);
+          setTimeout(function(){init_fullscreen_modal(iteration+1);},500);
         } else  {
           vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
           make_background_carousel_fit($("#goldring-modal-carousel"));
@@ -169,7 +170,10 @@ var Roots = {
         vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
-        if($('#GoldringCarousel').length) { make_background_carousel_fit($('#GoldringCarousel')); }
+        if($('#GoldringCarousel').length) {
+          make_background_carousel_fit($('#GoldringCarousel'));
+          vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
+        }
         if($("#feature_carousel").length) { make_background_carousel_fit($("#feature_carousel")); }
         setTimeout(function(){
           position_footer();
@@ -189,7 +193,7 @@ var Roots = {
 
       // first run...
       vertically_center_element( $("#feature_carousel"), $('main').offset().top );
-      // vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+      vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
       setTimeout(function(){
         position_footer();
       },5);

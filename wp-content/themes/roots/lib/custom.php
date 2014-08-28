@@ -21,10 +21,12 @@ function get_arts_shows($artID){
   $all_shows=get_posts( array('post_type'=>'portfolio', 'posts_per_page'=>-1) );
   foreach($all_shows as $this_show){
     $this_shows_art=get_shows_art($this_show->ID);
-    foreach($this_shows_art as $this_shows_artID){
-      $this_shows_art_post=get_post($this_shows_artID);
-      if($this_shows_art_post->post_name == $art_post->post_name){
-        $arts_show_postID_list[]=$this_show->ID;
+    if(count($this_shows_art)>0){
+      foreach($this_shows_art as $this_shows_artID){
+        $this_shows_art_post=get_post($this_shows_artID);
+        if($this_shows_art_post->post_name == $art_post->post_name){
+          $arts_show_postID_list[]=$this_show->ID;
+        }
       }
     }
   }

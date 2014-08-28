@@ -2,19 +2,17 @@
 <article id="art_post" <?php post_class(); ?>>
   <div class="md-overlay"></div>    
 	<div class="entry-content">
-    <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
 		<div class="row">
       <div id="art_post_buttons">
-        <button type="button" class="btn btn-xs post_content_modal collapsed" >
-          <a href="#" data-toggle="collapse" data-target="#post_content_modal">About</a>
-        </button>
-        <button type="button" class="btn btn-xs open_fullscreen_presentation">
-          <a data-toggle="modal" href="#art_modal_fullscreen">
+        <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
+          <a href="#" class="btn btn-xs post_content_modal collapsed" data-toggle="collapse" data-target="#post_content_modal">About</a>
+        <?php } ?>
+          <a class="btn btn-xs open_fullscreen_presentation" data-toggle="modal" href="#art_modal_fullscreen">
             <span class="glyphicon glyphicon-fullscreen"></span>
           </a>
-        </button>
       </div>
     </div>
+    <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-push-2">
         <div id="post_content_modal" class="collapse">
@@ -22,7 +20,7 @@
         </div>
 			</div>
 		</div>
-   <?php } ?>
+    <?php } ?>
 	 <!-- FULLSCREEN MODAL CAROUSEL GALLERY --> 
 	 
    	 <!-- Modal -->

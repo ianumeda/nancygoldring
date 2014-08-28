@@ -48,7 +48,7 @@ function get_grid_item($id){
   // gets featured image or first attached image in art posts within the portfolio
   $grid_item='<div class="pack-item text-center">';
 
-  $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="'.round(rand(8000000,16000000)/1000).'">';
+  $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="'.round(rand(4000000,12000000)/1000).'">';
   $grid_item.='<div class="carousel-inner">';
 
   $p_children = get_children( array( 'post_parent' => $id, 'post_type' => 'portfolio', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
