@@ -61,8 +61,8 @@ function custom_breadcrumb() {
             echo '<li><a href="'.get_permalink($anscestor).'">'.get_the_title($anscestor).'</a></li>';
           }
         }
+        echo '<li class="portfolio"><a href="'.get_permalink($portfolio).'">'.get_the_title($portfolio).'</a></li>';
       }
-      echo '<li class="portfolio"><a href="'.get_permalink($portfolio).'">'.get_the_title($portfolio).'</a></li>';
       echo '<li class="art">';
       the_title();
       echo '</li>';
