@@ -48,7 +48,8 @@ function get_grid_item($id){
   // gets featured image or first attached image in art posts within the portfolio
   $grid_item='<div class="pack-item text-center">';
 
-  $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="'.round(rand(4000000,12000000)/1000).'">';
+  $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="3000">';
+  // $grid_item.='<div id="CurrentWorkCarousel'.$id.'" class="CurrentWorkCarousel carousel slide" data-ride="carousel" data-interval="'.round(rand(4000000,8000000)/1000).'">';
   $grid_item.='<div class="carousel-inner">';
 
   $p_children = get_children( array( 'post_parent' => $id, 'post_type' => 'portfolio', 'orderby' => 'menu_order', 'order' => 'ASC', 'numberposts' => 999 ) );
@@ -72,15 +73,17 @@ function get_grid_item($id){
       $slides[]=$key;
     }
   }
-
+    
   $number=-1;
 
   foreach($slides as $slide){
-    $number++;
-    $grid_item.='<div class="carousel-item item'.($number==0 ? ' active' : '').'">';
     $imageUrl = wp_get_attachment_image_src( get_image_within($slide), 'small' );
-    $grid_item.='<img class="img-responsive" src="'.$imageUrl[0].'"/>';
-    $grid_item.='</div>';
+    if(!empty($imageUrl)){
+      $number++;
+      $grid_item.='<div class="carousel-item item'.($number==0 ? ' active' : '').'">';
+      $grid_item.='<img class="img-responsive" src="'.$imageUrl[0].'"/>';
+      $grid_item.='</div>';
+    }
   }
   $grid_item.='</div>
                <a class="coverall_link" href="'.get_permalink($id).'"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -123,9 +126,12 @@ function get_grid_item($id){
   foreach($portfolio_list as $key=>$value){
     array_push($art_post_id_list,$key);
   }
-
-  foreach($art_post_id_list as $art_post_id){
-    echo get_grid_item($art_post_id);
+  
+  // now sort them into alphabetical order by title...
+  $ordered_posts = get_posts(array('include'=>$art_post_id_list, 'post_type'=>array('art','portfolio'), 'order'=>'ASC', 'orderby'=>'title'));
+  
+  foreach($ordered_posts as $art_post_id){
+    echo get_grid_item($art_post_id->ID);
   }
 ?>
   </div>

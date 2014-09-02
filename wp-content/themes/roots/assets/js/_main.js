@@ -76,6 +76,9 @@ var Roots = {
         $("#post_content_modal").collapse('hide');
         //Hide the about text if visible
       });
+      $('#post_content_modal .close').on('click', function(){
+        $("#post_content_modal").collapse('hide');
+      });
       // initialize art about collapse 
       $("#post_content_modal").collapse({ toggle: false });
       
@@ -87,7 +90,7 @@ var Roots = {
             // this is because elements with display:none have zero height 
             $(this).parent().css({display:"block",visibility:"hidden"}); // hack!
           }
-          adjustment=$(this).parent().find('.carousel-caption').outerHeight();
+          adjustment=$(this).next('.carousel-caption').height();
           $(this).height($(this).parent().height()-adjustment); // this sets the height of the image div to the max height of the container
 
           var parent_h=$(this).parent().height();
@@ -96,10 +99,12 @@ var Roots = {
           // the following gets the background image dimensions so we can set the background-size so that it doesn't get cut off
           var img = new Image();
           img.src = $(this).css('background-image').replace(/url\(|\)$/ig, "");
-          if( parent_h / parent_w > img.height/img.width ){
-            $(this).css({'background-size':'100% auto'});
-          } else {
+          if( parent_h/parent_w < img.height/img.width ){
+            console.log(parent_h/parent_w+" vs. "+ img.height/img.width+"...window is wider than image");
             $(this).css({'background-size':'auto 100%'});
+          } else {
+            console.log(parent_h/parent_w+" vs. "+ img.height/img.width+"...window is taller than image");
+            $(this).css({'background-size':'100% auto'});
           }
           if( $(this).parent().attr('style') ){
             $(this).parent().removeAttr('style'); // unhack!
@@ -173,9 +178,12 @@ var Roots = {
         if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
         if($('#GoldringCarousel').length) {
           make_background_carousel_fit($('#GoldringCarousel'));
-          vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
+          vertically_center_element( $("#GoldringCarousel") , 100 );
         }
-        if($("#feature_carousel").length) { make_background_carousel_fit($("#feature_carousel")); }
+        if($("#feature_carousel").length>0) {
+          console.log("feature_carousel");
+          make_background_carousel_fit($("#feature_carousel"));
+        }
         setTimeout(function(){
           position_footer();
         },5);

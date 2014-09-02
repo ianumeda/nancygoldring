@@ -80,7 +80,10 @@ body {
   .thumbnail { 
     background:none;
     border:none;
-    
+  }
+  img{
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -244,7 +247,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		margin: 20px auto;
 	}
 	.carousel-inner {
-		height: 540px;
+    // height: 540px;
 	}
 	.carousel-indicators {
 		position: relative;
@@ -310,12 +313,25 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   .excerpt { position:relative; text-align:center;}
 }
 #post_content_modal { 
-  position: absolute;
+  position: fixed;
+  bottom:0; 
+  left:0;
   z-index: 12;
-  box-shadow: 0px 3px 10px -4px;
+  box-shadow: 0px -2px 10px -4px;
   height: auto;
-  background: white;  
+  background: #eee;  
   padding:2em;
+  z-index:100;
+  width:100%;
+  max-height:65%;
+  min-height:240px;
+  overflow:auto;
+  > a.close {
+    position:absolute;
+    top:.5em;
+    right:.5em;
+    font-size:16px;
+  }
 }
 .post_content_modal a { 
   color:#555;
@@ -455,7 +471,13 @@ button.art_about {
   width: 33%;
   height: 240px;
   padding:15px;
-  .title { text-align:center; margin-top:1em; }
+  .title { 
+    text-align: center;
+    top: 180px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
 }
 
 .CurrentWorkCarousel {
@@ -479,7 +501,7 @@ button.art_about {
 #art_modal_fullscreen {
   .carousel-caption { color:#ccc; }
   .item.background-carousel { 
-    padding:60px 15px 120px;
+    padding:60px 15px;
     top:0;
     right:0;
     bottom:0;
@@ -554,21 +576,21 @@ button.art_about {
     button.close { 
       color: #fff;
       opacity: .8;
-      padding: 10px 14px;
+      padding: 0 .5rem 1rem;
       font-family: helvetica;
-      font-size: 12px;
+      font-size: 1rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       font-weight: 100;
-      line-height: 26px;
+      line-height: 1rem;
       border-radius: 6px;
       transition: all .25s ease;
       > span { 
-        font-size: 26px;
-        line-height: 18px;
+        font-size: 2rem;
+        line-height: 2rem;
         top: 7px;
         display: inline-block;
-        margin-left: 6px;
+        margin-left: .5rem;
       }
       &:hover { opacity:1; background:rgba(255,255,255,.2); }
     }
