@@ -46,14 +46,16 @@ var Roots = {
       
       function init_fullscreen_modal (iteration){
         // this function ensures that the resizing of the modal presentation happens before you see it. All the sizing can only happen with the modal is active. Otherwise the sizes are all zero.
-        if($("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0){
+        if($("#goldring-modal-carousel .carousel-inner .item").first().innerHeight() === 0 || !iteration){
           $("#goldring-modal-carousel").css({"opacity":"0"});
-          console.log("item height === 0, "+iteration);
           setTimeout(function(){init_fullscreen_modal(iteration+1);},500);
+          console.log("item height === 0, "+iteration);
         } else  {
-          vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+          // vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
+          $("#goldring-modal-carousel").css({"opacity":"0"});
           make_background_carousel_fit($("#goldring-modal-carousel"));
           $("#goldring-modal-carousel").css({"opacity":"1" , "transition":"opacity .5s ease"});
+          console.log("item height === 0, "+iteration);
         }
       }
       $(".open_fullscreen_presentation").on("click", function(){
@@ -91,25 +93,54 @@ var Roots = {
             $(this).parent().css({display:"block",visibility:"hidden"}); // hack!
           }
           adjustment=$(this).next('.carousel-caption').height();
-          $(this).height($(this).parent().height()-adjustment); // this sets the height of the image div to the max height of the container
-
-          var parent_h=$(this).parent().height();
-          var parent_w=$(this).parent().width();
+          // $(this).height($(this).parent().height()-adjustment); // this sets the height of the image div to the max height of the container
           
-          // the following gets the background image dimensions so we can set the background-size so that it doesn't get cut off
-          var img = new Image();
-          img.src = $(this).css('background-image').replace(/url\(|\)$/ig, "");
-          if( parent_h/parent_w < img.height/img.width ){
-            console.log(parent_h/parent_w+" vs. "+ img.height/img.width+"...window is wider than image");
-            $(this).css({'background-size':'auto 100%'});
+          // 'background_image_container' should initially have an img with the src that should end up being the background image of $(this)
+          if($(this).attr('loaded')!==1) {
+            $(this).children("img").first().one("load", function() {
+              $(this).parent().attr("loaded",1);
+              size_carousel_images_appropriately($(this).parent());
+            }).each(function() {
+              if(this.complete) {$(this).load();}
+            });
           } else {
-            console.log(parent_h/parent_w+" vs. "+ img.height/img.width+"...window is taller than image");
-            $(this).css({'background-size':'100% auto'});
-          }
-          if( $(this).parent().attr('style') ){
-            $(this).parent().removeAttr('style'); // unhack!
+            size_carousel_images_appropriately($(this));
           }
         });
+      }
+      
+      function set_carousel_container_to_window_size(el){
+        // this function is for the art post carousels to size the container to that of the viewport.
+        var viewportWidth = $(window).width();
+        var viewportHeight = $(window).height();
+        viewportHeight-= 300;
+        el.find('.carousel-inner').css('height',viewportHeight+"px");
+        el.find('.carousel-inner .item').each(function(){
+          $(this).css('height',viewportHeight+"px");
+        });
+      }
+      function size_carousel_images_appropriately(el){
+        //expects el to be .item.background_image_container
+        var test_img=new Image();
+        
+        var img = el.children("img").first();
+        test_img.src=img.attr('src');
+        var parent_h=el.parent().height();
+        var parent_w=el.parent().width();
+        if( parent_h/parent_w < test_img.height/test_img.width ){
+          // image is a taller rectangle than the window
+          img.css({'margin':"0px auto",'height':parent_h+"px",'width':'auto'});
+          console.log("img is taller than window. ");
+        } else {
+          // image is a fatter rectangle than the window
+          img.css({'margin-top':"0px", 'margin-left':"auto",'margin-right':"auto",'width':"100%",'height':'auto'});
+          img_y=(parent_h-img.innerHeight())/2;
+          img.css('margin-top', img_y+"px");
+          console.log("img is fatter than window. ");
+        }
+        if( el.parent().attr('style') ){
+          el.parent().removeAttr('style'); // unhack!
+        }
       }
       
       // make carousel-indicators one row and follow selected image...
@@ -173,12 +204,14 @@ var Roots = {
         carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
       }
       function on_resize(){
-        vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+        set_carousel_container_to_window_size($('#feature_carousel'));
+        // vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
         if($('#GoldringCarousel').length) {
+          set_carousel_container_to_window_size($('#GoldringCarousel'));
           make_background_carousel_fit($('#GoldringCarousel'));
-          vertically_center_element( $("#GoldringCarousel") , 100 );
+          // vertically_center_element( $("#GoldringCarousel") , 100 );
         }
         if($("#feature_carousel").length>0) {
           console.log("feature_carousel");
@@ -201,8 +234,8 @@ var Roots = {
       });
 
       // first run...
-      vertically_center_element( $("#feature_carousel"), $('main').offset().top );
-      vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
+      // vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+      // vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
       setTimeout(function(){
         position_footer();
       },5);

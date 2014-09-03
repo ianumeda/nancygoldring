@@ -37,6 +37,7 @@ body {
    ========================================================================== */
 
 .banner { 
+  margin-bottom:10px;
   a.navbar-brand { 
     border-top: 1px solid #555;
     height: 46px;
@@ -140,7 +141,7 @@ footer.content-info {
   .reveal { 
     overflow:hidden;
     height:0px;
-    background:rgba(0,0,0,.05);
+    background:#eee;
     box-shadow:inset 0 0 10px -6px;
     // padding:.5em;
     width:100%;
@@ -247,7 +248,11 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		margin: 20px auto;
 	}
 	.carousel-inner {
-    // height: 540px;
+    height: 540px;
+    .item {
+      height: 540px;
+    }
+    // overflow:visible;
 	}
 	.carousel-indicators {
 		position: relative;
@@ -298,9 +303,10 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 .carousel-caption {
   position:relative; 
-  left:0; 
-  right:0; 
-  bottom:0; 
+  left:0;
+  right:0;
+  // bottom:-50px;
+  margin-top:10px;
   padding-bottom:0;  
   font-weight: 100;
   font-size: 12px;
@@ -311,6 +317,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   letter-spacing: 1px;
   .title { position:relative; text-align:center; }
   .excerpt { position:relative; text-align:center;}
+  .content { position:relative; text-align:center;}
 }
 #post_content_modal { 
   position: fixed;
@@ -415,9 +422,13 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     -o-background-size: auto 100%; 
     background-size: 100% auto; 
     background-repeat: no-repeat;
-    overflow:hidden;
-    height:480px;
+    // overflow:hidden;
+    // height:480px;
     margin:0 auto;
+    >img{
+      position:relative;
+      display:block;
+    }
   }
 }
 #feature_carousel {
@@ -507,7 +518,13 @@ button.art_about {
     bottom:0;
     left:0;
     position:fixed;
-    > .background_image_container { width:100%; height:540px; }
+    > .background_image_container { 
+      width:100%; 
+      >img { 
+        display:block; 
+        position:relative;
+      }
+    }
   }
   .modal-title {
     font-size:1.6em; 

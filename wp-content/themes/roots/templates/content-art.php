@@ -63,7 +63,8 @@
 
                         $modal_carousel_items.='<div class="item modal-item background-carousel'. ($number==0 ? ' active': '') .'">';
                         $large_image=wp_get_attachment_image_src( $attachment->ID, 'large' );
-                        $modal_carousel_items.='<div class="background_image_container" style="background-image:url('. $large_image[0] .');"></div>';
+                        $modal_carousel_items.='<div class="background_image_container"><img src="'.$large_image[0].'"></div>'; // to be filled in with background-image style when IMG has loaded, (and img is then removed from DOM)
+                        // $modal_carousel_items.='<div class="background_image_container" style="background-image:url('. $large_image[0] .');"></div>';
                         $modal_carousel_items.='<div class="carousel-caption">';
                         $modal_carousel_items.='<p class="title">'. $attachment->post_title .'</p>';
                         $modal_carousel_items.='<p class="excerpt">'. $attachment->post_excerpt .'</p>';
@@ -72,7 +73,8 @@
 
                         $page_carousel_items.='<div class="item modal-item background-carousel'. ($number==0 ? ' active': '') .'">';
                         $full_image=wp_get_attachment_image_src( $attachment->ID, 'full' );
-                        $page_carousel_items.='<div data-target="#goldring-modal-carousel" data-slide-to="'.$number.'" class="background_image_container" style="background-image:url('. $full_image[0] .');"></div>';
+                        $page_carousel_items.='<div data-target="#goldring-modal-carousel" data-slide-to="'.$number.'" class="background_image_container"><img src="'. $full_image[0] .'"></div>';
+                        // $page_carousel_items.='<div data-target="#goldring-modal-carousel" data-slide-to="'.$number.'" class="background_image_container" style="background-image:url('. $full_image[0] .');"></div>';
                         $page_carousel_items.='<div class="carousel-caption">';
                         $page_carousel_items.='<p class="title">'. $attachment->post_title .'</p>';
                         $page_carousel_items.='<p class="excerpt">'. $attachment->post_excerpt .'</p>';

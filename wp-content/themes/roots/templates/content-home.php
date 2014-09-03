@@ -25,7 +25,9 @@ while ( $query->have_posts() ) {
 
 ?>      
     <div class="item background-carousel<?php if($slide_counter==0) echo " active"; ?>">
-      <div class="background_image_container" style="background-image:url(<?php echo $imgurl; ?>);"></div>
+      <div class="background_image_container" style="height:50%; min-height:360px;">
+        <img src="<?php echo $imgurl; ?>">
+      </div>
       <!-- <img class="img-responsive" src="<?php echo $imgurl; ?>" alt="<?php echo $post->ID; ?>"> -->
       <div class="carousel-caption ">
         <div class="carousel-item-title visible-xs"><?php echo get_the_title($post->ID); ?></div>
