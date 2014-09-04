@@ -28,9 +28,11 @@ body {
   background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
   background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
-
 }
 
+.entry-title { font-size:2em; 
+  a { color:#000; }
+}
 
 /* ==========================================================================
    Header
@@ -315,6 +317,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   font-size: 12px;
   font-weight: 100;
   letter-spacing: 1px;
+  > p { margin:0 0 2px; }
   .title { position:relative; text-align:center; }
   .excerpt { position:relative; text-align:center;}
   .content { position:relative; text-align:center;}
