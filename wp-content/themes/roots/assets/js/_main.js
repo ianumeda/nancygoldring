@@ -113,7 +113,7 @@ var Roots = {
         // this function is for the art post carousels to size the container to that of the viewport.
         var viewportWidth = $(window).width();
         var viewportHeight = $(window).height();
-        viewportHeight-= 300;
+        viewportHeight=viewportHeight*0.5;
         el.find('.carousel-inner').css('height',viewportHeight+"px");
         el.find('.carousel-inner .item').each(function(){
           $(this).css('height',viewportHeight+"px");
@@ -127,14 +127,15 @@ var Roots = {
         test_img.src=img.attr('src');
         var parent_h=el.parent().height();
         var parent_w=el.parent().width();
+        var space_for_captions=45;
         if( parent_h/parent_w < test_img.height/test_img.width ){
           // image is a taller rectangle than the window
-          img.css({'margin':"0px auto",'height':parent_h+"px",'width':'auto'});
+          img.css({'margin':"0px auto",'height':(parent_h-space_for_captions)+"px",'width':'auto'});
           console.log("img is taller than window. ");
         } else {
           // image is a fatter rectangle than the window
           img.css({'margin-top':"0px", 'margin-left':"auto",'margin-right':"auto",'width':"100%",'height':'auto'});
-          img_y=(parent_h-img.innerHeight())/2;
+          img_y=(parent_h-img.innerHeight()-space_for_captions)/2;
           img.css('margin-top', img_y+"px");
           console.log("img is fatter than window. ");
         }
@@ -204,8 +205,7 @@ var Roots = {
         carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
       }
       function on_resize(){
-        set_carousel_container_to_window_size($('#feature_carousel'));
-        // vertically_center_element( $("#feature_carousel"), $('main').offset().top );
+        if($('#feature_carousel').length) { set_carousel_container_to_window_size($('#feature_carousel')); }
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
         if($('#GoldringCarousel').length) {
@@ -216,6 +216,7 @@ var Roots = {
         if($("#feature_carousel").length>0) {
           console.log("feature_carousel");
           make_background_carousel_fit($("#feature_carousel"));
+          vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         }
         setTimeout(function(){
           position_footer();
@@ -267,12 +268,11 @@ var Roots = {
           }
           var foo=(document.documentElement.clientHeight-e.innerHeight()-offset_h)/2;
           e.css({"position":"relative", "margin-top":(foo>0 ? foo : 0)+"px"});
-          console.log(foo+", "+offset_h);
         }
       }
       contact_content=$("main").children("p").first();
       main_offset=$("main").offset();
-      vertically_center_element( contact_content , main_offset.top+contact_content.innerHeight());
+      vertically_center_element( contact_content, 300 );
     }
   }
 };
