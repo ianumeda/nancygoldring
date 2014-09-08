@@ -92,10 +92,9 @@ var Roots = {
             // this is because elements with display:none have zero height 
             $(this).parent().css({display:"block",visibility:"hidden"}); // hack!
           }
-          adjustment=$(this).next('.carousel-caption').height();
+          adjustment=$(this).next('.carousel-caption').height() ? $(this).next('.carousel-caption').height() : 0;
           // $(this).height($(this).parent().height()-adjustment); // this sets the height of the image div to the max height of the container
           
-          // 'background_image_container' should initially have an img with the src that should end up being the background image of $(this)
           if($(this).attr('loaded')!==1) {
             $(this).children("img").first().one("load", function() {
               $(this).parent().attr("loaded",1);
@@ -127,7 +126,10 @@ var Roots = {
         test_img.src=img.attr('src');
         var parent_h=el.parent().height();
         var parent_w=el.parent().width();
-        var space_for_captions=45;
+        adjustment=el.next('.carousel-caption').outerHeight() ? el.next('.carousel-caption').outerHeight() : 0;
+        console.log('adjustment='+adjustment);
+        var space_for_captions=adjustment;
+        console.log(parent_h+"/"+parent_w, test_img.height+"/"+test_img.width);
         if( parent_h/parent_w < test_img.height/test_img.width ){
           // image is a taller rectangle than the window
           img.css({'margin':"0px auto",'height':(parent_h-space_for_captions)+"px",'width':'auto'});
@@ -205,6 +207,8 @@ var Roots = {
         carousel_thumbnail_snazziness($(".snazzy_thumbnails")); // this initiates snazzy_thumbnails in any element with the class
       }
       function on_resize(){
+        if($(".CurrentWorkCarousel").length > 0) {make_background_carousel_fit($(".CurrentWorkCarousel"));}
+        
         if($('#feature_carousel').length) { set_carousel_container_to_window_size($('#feature_carousel')); }
         vertically_center_element( $("#goldring-modal-carousel") , $('.modal-header').innerHeight() );
         if($('#goldring-modal-carousel').length) { make_background_carousel_fit($('#goldring-modal-carousel')); }
@@ -233,8 +237,9 @@ var Roots = {
         }
         resize_delay=setTimeout(on_resize, 500);
       });
-
+      
       // first run...
+      // $(".CurrentWorkCarousel .carousel-inner .item").each(function(){ size_carousel_images_appropriately( $(this) ); });
       // vertically_center_element( $("#feature_carousel"), $('main').offset().top );
       // vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
       setTimeout(function(){

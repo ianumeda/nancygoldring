@@ -8,7 +8,7 @@ $query = new WP_Query( array( 'post_type' => 'page', 'post_parent' => $post->ID,
 if ( $query->have_posts() ) {
 ?>
 <div class="row">
-  <div id="feature_carousel" class="carousel carousel slide col-md-12" data-interval="20000">
+  <div id="feature_carousel" class="carousel carousel slide col-md-12" data-interval="5000">
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
 

@@ -243,6 +243,15 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    Carousel Custom
    ========================================================================== */
 .snazzy_thumbnails .carousel-indicators { opacity:0; }
+.CurrentWorkCarousel {
+	.carousel-inner {
+    height:170px; // these heights are important in setting the size and placement of the carousel images using function make_background_carousel_fit()
+    .item {
+      height: 170px;
+    }
+    // overflow:visible;
+	}
+}
 #GoldringCarousel {
   padding:0 0 60px;
   overflow-x:hidden;
@@ -250,7 +259,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 		margin: 20px auto;
 	}
 	.carousel-inner {
-    height: 540px;
+    height: 540px; // these heights are important in setting the size and placement of the carousel images using function make_background_carousel_fit()
     .item {
       height: 540px;
     }
@@ -390,11 +399,11 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 .carousel {
   .carousel-inner{
     .item {
-      -webkit-transition-delay: 5s; /* Safari */
-      transition-delay: 5s;
+      // -webkit-transition-delay: 5s; /* Safari */
+      // transition-delay: 5s;
       &.active {
-        -webkit-transition-delay: 0s; /* Safari */
-        transition-delay: 0s;
+        // -webkit-transition-delay: 0s; /* Safari */
+        // transition-delay: 0s;
       }
     }
   }
