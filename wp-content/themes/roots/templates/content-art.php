@@ -14,9 +14,9 @@
     </div>
     <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
     <div class="row">
-        <div id="post_content_modal" class="collapse">
-          <a href="#" class="close" data-toggle="collapse" data-target="#post_content_modal">Close <span class="glyphicon glyphicon-remove"></span></a>
-          <div class="col-xs-12 col-sm-8 col-sm-push-2">
+      <div id="post_content_modal" class="collapse">
+        <a href="#" class="close" data-toggle="collapse" data-target="#post_content_modal">Close <span class="glyphicon glyphicon-remove"></span></a>
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
 				<?php the_content() ?>
         </div>
 			</div>

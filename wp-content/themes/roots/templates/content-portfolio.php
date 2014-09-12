@@ -102,8 +102,8 @@ function get_grid_item($id){
     </button>
   </div>
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-      <div id="post_content_modal" class="collapse">
+    <div id="post_content_modal" class="collapse">
+      <div class="col-xs-12 col-sm-8 col-sm-push-2">
   			<?php the_content() ?>
       </div>
 		</div>
