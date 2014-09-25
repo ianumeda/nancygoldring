@@ -218,7 +218,6 @@ var Roots = {
           // vertically_center_element( $("#GoldringCarousel") , 100 );
         }
         if($("#feature_carousel").length>0) {
-          console.log("feature_carousel");
           make_background_carousel_fit($("#feature_carousel"));
           vertically_center_element( $("#feature_carousel"), $('main').offset().top );
         }
@@ -241,7 +240,7 @@ var Roots = {
       // first run...
       // $(".CurrentWorkCarousel .carousel-inner .item").each(function(){ size_carousel_images_appropriately( $(this) ); });
       // vertically_center_element( $("#feature_carousel"), $('main').offset().top );
-      // vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
+      vertically_center_element( $("#GoldringCarousel") , $('header').innerHeight() );
       setTimeout(function(){
         position_footer();
       },5);
@@ -258,7 +257,9 @@ var Roots = {
   home: {
     init: function() {
       // JavaScript to be fired on the home page
-      
+      $('#feature_carousel').carousel({
+        interval: 5000
+      });
     }
   },
   // About us page, note the change from about-us to about_us.

@@ -97,9 +97,7 @@ function get_grid_item($id){
 <article id="portfolio_post" <?php post_class(); ?>>
   <?php if (ctype_space(get_the_content($post->ID)) || get_the_content($post->ID)!='') { ?>
   <div id="art_post_buttons">
-    <button type="button" class="btn btn-xs post_content_modal" >
-      <a href="#" data-toggle="collapse" data-target="#post_content_modal">About</a>
-    </button>
+    <a href="#" class="btn btn-xs post_content_modal" data-toggle="collapse" data-target="#post_content_modal">About</a>
   </div>
   <div class="row">
     <div id="post_content_modal" class="collapse">
@@ -129,7 +127,17 @@ function get_grid_item($id){
   
   // now sort them into alphabetical order by title...
   $ordered_posts = get_posts(array('include'=>$art_post_id_list, 'post_type'=>array('art','portfolio'), 'order'=>'ASC', 'orderby'=>'title'));
-  
+  if(count($ordered_posts)==1) {
+    //then redirect to that post because there is only one option
+    foreach($ordered_posts as $art_post_id){
+      if (headers_sent()){
+        die('<script type="text/javascript">window.location.href="' . get_permalink($art_post_id) . '";</script>');
+      }else{
+        header('Location: ' . get_permalink($art_post_id));
+        die();
+      }    
+    } 
+  }
   foreach($ordered_posts as $art_post_id){
     echo get_grid_item($art_post_id->ID);
   }
